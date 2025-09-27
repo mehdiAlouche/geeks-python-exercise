@@ -1,0 +1,59 @@
+### Get all students with default pagination
+GET http://localhost:5001/students
+
+### Get students with custom pagination
+GET http://localhost:5001/students?page=1&limit=2
+
+### Get specific student
+GET http://localhost:5001/students/1
+
+### Get non-existent student
+GET http://localhost:5001/students/999
+
+### Create new student
+POST http://localhost:5001/students
+Content-Type: application/json
+
+{
+    "name": "Alice Smith",
+    "email": "alice.smith@example.com",
+    "age": 24,
+    "gender": "female"
+}
+
+### Create student with invalid data
+POST http://localhost:5001/students
+Content-Type: application/json
+
+{
+    "name": "",
+    "email": "invalid-email",
+    "age": -5,
+    "gender": ""
+}
+
+### Update student
+PUT http://localhost:5001/students/1
+Content-Type: application/json
+
+{
+    "name": "John Updated",
+    "age": 25
+}
+
+### Update non-existent student
+PUT http://localhost:5001/students/999
+Content-Type: application/json
+
+{
+    "name": "Non Existent"
+}
+
+### Delete student
+DELETE http://localhost:5001/students/3
+
+### Delete non-existent student
+DELETE http://localhost:5001/students/999
+
+### Test 404 error
+GET http://localhost:5001/nonexistent
