@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Menu - Restaurant Menu Manager{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>🍽️ Restaurant Menu</h1>
+            <a href="{{ url_for('add_item') }}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Add New Item
+            </a>
+        </div>
+
+        {% if items %}
+            <div class="row">
+                {% for item in items %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.item_name }}</h5>
+                            <p class="card-text">
+                                <strong>Price:</strong> ${{ item.item_price }}
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">ID: {{ item.item_id }}</small>
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <div class="btn-group w-100" role="group">
+                                <a href="{{ url_for('update_item', item_id=item.item_id) }}" 
+                                   class="btn btn-outline-primary btn-sm btn-action">
+                                    ✏️ Update
+                                </a>
+                                <form method="POST" action="{{ url_for('delete_item', item_id=item.item_id) }}" 
+                                      style="display: inline;" 
+                                      onsubmit="return confirm('Are you sure you want to delete this item?')">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm btn-action">
+                                        🗑️ Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center py-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="text-muted">No menu items found</h3>
+                        <p class="text-muted">Start by adding your first menu item!</p>
+                        <a href="{{ url_for('add_item') }}" class="btn btn-primary">
+                            Add First Item
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
