@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Challenge: Create a solar system</title>
+        <style>
+            body {
+                background-color: black;
+                padding: 20px;
+                perspective: 1000px;
+                font-family: 'Arial', sans-serif;
+            }
+            
+            .listPlanets {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 80px;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+            }
+            
+            .planet {
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                text-align: center;
+                padding: 10px;
+                position: relative;
+                border: 3px solid rgba(255, 255, 255, 0.3);
+                transform-style: preserve-3d;
+                animation: planetRotate 10s linear infinite;
+                box-shadow: 
+                    0 0 20px rgba(255, 255, 255, 0.2),
+                    inset 0 0 20px rgba(0, 0, 0, 0.3);
+                transition: all 0.3s ease;
+                cursor: pointer;
+                background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+            }
+            
+            .planet:hover {
+                transform: translateZ(50px) scale(1.2);
+                box-shadow: 
+                    0 0 40px rgba(255, 255, 255, 0.4),
+                    0 20px 40px rgba(0, 0, 0, 0.5),
+                    inset 0 0 30px rgba(255, 255, 255, 0.1);
+                animation-play-state: paused;
+            }
+            
+            @keyframes planetRotate {
+                from {
+                    transform: rotateY(0deg);
+                }
+                to {
+                    transform: rotateY(360deg);
+                }
+            }
+            
+            .planet-name {
+                color: white;
+                margin: 0;
+                font-weight: bold;
+                font-size: 14px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+                transform: translateZ(20px);
+            }
+            
+            .moon {
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9) 0%, rgba(200, 200, 200, 0.8) 100%);
+                border: 2px solid rgba(255, 255, 255, 0.8);
+                animation: moonOrbit 5s linear infinite;
+                transform-style: preserve-3d;
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+                font-size: 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: black;
+                font-weight: bold;
+            }
+            
+            @keyframes moonOrbit {
+                from {
+                    transform: rotate(0deg) translateX(80px) rotate(0deg);
+                }
+                to {
+                    transform: rotate(360deg) translateX(80px) rotate(-360deg);
+                }
+            }
+            
+            /* Different rotation speeds for planets */
+            .planet.mercury { animation-duration: 3s; }
+            .planet.venus { animation-duration: 7s; }
+            .planet.earth { animation-duration: 1s; }
+            .planet.mars { animation-duration: 8s; }
+            .planet.jupiter { animation-duration: 0.4s; }
+            .planet.saturn { animation-duration: 0.2s; }
+            .planet.orbit { animation-duration: 6s; }
+            .planet.neptune { animation-duration: 8s; }
+            
+            /* Different background colors for each planet (Hint: new class to each planet) */
+            .mercury-color {
+                background-color: rgb(139, 69, 19) !important; /* Brown */
+                box-shadow: 0 0 30px rgba(139, 69, 19, 0.5);
+            }
+            
+            .venus-color {
+                background-color: rgb(255, 165, 0) !important; /* Orange */
+                box-shadow: 0 0 30px rgba(255, 165, 0, 0.5);
+            }
+            
+            .earth-color {
+                background-color: rgb(0, 100, 255) !important; /* Blue */
+                box-shadow: 0 0 30px rgba(0, 100, 255, 0.5);
+            }
+            
+            .mars-color {
+                background-color: rgb(255, 0, 0) !important; /* Red */
+                box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+            }
+            
+            .jupiter-color {
+                background-color: rgb(255, 140, 0) !important; /* Orange */
+                box-shadow: 0 0 30px rgba(255, 140, 0, 0.5);
+            }
+            
+            .saturn-color {
+                background-color: rgb(255, 215, 0) !important; /* Gold */
+                background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+                box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+                position: relative;
+            }
+            
+            .saturn-color::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 140px;
+                height: 140px;
+                border: 3px solid rgba(255, 215, 0, 0.5);
+                border-radius: 50%;
+                transform: translate(-50%, -50%) rotateX(60deg);
+                z-index: -1;
+            }
+            
+            .uranus-color {
+                background-color: rgb(0, 255, 255) !important; /* Cyan */
+                box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            }
+            
+            .neptune-color {
+                background-color: rgb(0, 100, 200) !important; /* Blue */
+                box-shadow: 0 0 30px rgba(0, 100, 200, 0.5);
+            }
+            
+            /* Twinkling stars animation */
+            @keyframes twinkle {
+                from {
+                    opacity: 0.3;
+                    transform: scale(0.5);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1.2);
+                }
+            }
+            
+            /* Responsive design for smaller screens */
+            @media (max-width: 768px) {
+                .listPlanets {
+                    gap: 40px;
+                }
+                
+                .planet {
+                    width: 80px;
+                    height: 80px;
+                }
+                
+                .planet-name {
+                    font-size: 10px;
+                }
+                
+                .moon {
+                    width: 15px;
+                    height: 15px;
+                    font-size: 5px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+
+    <section class="listPlanets"></section>
+
+    <script src="script.js"></script>
+    </body>
+</html>
