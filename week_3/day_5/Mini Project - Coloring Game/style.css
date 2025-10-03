@@ -1,0 +1,175 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #555;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+}
+
+/* Color Palette */
+.color-palette {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.colors {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    gap: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.color {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 4px solid transparent;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.color:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.color.selected {
+    border-color: #333;
+    transform: scale(1.15);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Drawing Area */
+.drawing-area {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(20, 25px);
+    grid-template-rows: repeat(20, 25px);
+    gap: 1px;
+    background-color: #ddd;
+    border: 3px solid #333;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 0 auto;
+    max-width: fit-content;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.grid-square {
+    width: 25px;
+    height: 25px;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.1s ease;
+    border-radius: 2px;
+}
+
+.grid-square:hover {
+    opacity: 0.8;
+}
+
+/* Controls */
+.controls {
+    text-align: center;
+}
+
+#clearButton {
+    background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1em;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+}
+
+#clearButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+#clearButton:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        margin: 10px;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+    
+    .grid {
+        grid-template-columns: repeat(15, 20px);
+        grid-template-rows: repeat(15, 20px);
+    }
+    
+    .grid-square {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .color {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .colors {
+        grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid {
+        grid-template-columns: repeat(12, 18px);
+        grid-template-rows: repeat(12, 18px);
+    }
+    
+    .grid-square {
+        width: 18px;
+        height: 18px;
+    }
+}
