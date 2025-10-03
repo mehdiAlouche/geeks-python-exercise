@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Exercise</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #433;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        input[type="text"]:focus {
+            border-color: #4CAF50;
+            outline: none;
+            box-shadow: 0 0 5px rgba(76,175,80,0.3);
+        }
+        
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        
+        .usersAnswer {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            min-height: 50px;
+        }
+        
+        .usersAnswer li {
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #e8f5e8;
+            border-radius: 4px;
+            border-left: 4px solid #4CAF50;
+            list-style: none;
+        }
+        
+        .usersAnswer.empty {
+            text-align: center;
+            color: #888;
+            font-style: italic;
+        }
+        
+        .error {
+            color: #ff4444;
+            font-size: 14px;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #ffeaea;
+            border-radius: 4px;
+            border-left: 4px solid #ff4444;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form id="userForm">
+        <label for="fname">First name:</label><br>
+        <input type="text" id="fname" name="firstname" required><br>
+        <label for="lname">Last name:</label><br>
+        <input type="text" id="lname" name="lastname" required><br><br>
+        <input type="submit" value="Submit" id="submit">
+    </form>
+    
+    <ul class="usersAnswer"></ul>
+
+    <script>
+        // Task 1: Retrieve the form and console.log it
+        const form = document.getElementById('userForm');
+        console.log('Form element:', form);
+        
+        // Task 2: Retrieve the inputs by their id and console.log them
+        const firstNameInput = document.getElementById('fname');
+        const lastNameInput = document.getElementById('lname');
+        console.log('Input by ID (fname):', firstNameInput);
+        console.log('Input by ID (lname):', lastNameInput);
+        
+        // Task 3: Retrieve the inputs by their name attribute and console.log them
+        const firstnameByName = document.querySelector('input[name="firstname"]');
+        const lastnameByName = document.querySelector('input[name="lastname"]');
+        console.log('Input by name (firstname):', firstnameByName);
+        console.log('Input by name (lastname):', lastnameByName);
+        
+        // Task 4: Submit event listener
+        form.addEventListener('submit', function(event) {
+            // Use event.preventDefault() to prevent the default form submission behavior
+            // This prevents the page from reloading and allows us to handle the form data with JavaScript
+            event.preventDefault();
+            
+            // Get the values of the input tags
+            const firstName = firstNameInput.value.trim();
+            const lastName = lastNameInput.value.trim();
+            
+            // Make sure that they are not empty
+            if (firstName === '' || lastName === '') {
+                alert('Please fill in both first name and last name!');
+                return;
+            }
+            
+            // Create an li per input value
+            const usersAnswerList = document.querySelector('.usersAnswer');
+            
+            // Clear any previous content
+            usersAnswerList.innerHTML = '';
+            
+            // Create and append li elements
+            const firstNameLi = document.createElement('li');
+            firstNameLi.textContent = `First name: ${firstName}`;
+            usersAnswerList.appendChild(firstNameLi);
+            
+            const lastNameLi = document.createElement('li');
+            lastNameLi.textContent = `Last name: ${lastName}`;
+            usersAnswerList.appendChild(lastNameLi);
+            
+            // Clear the form after successful submission
+            form.reset();
+            
+            console.log('Form submitted successfully! First name:', firstName, 'Last name:', lastName);
+        });
+        
+        // Add some styling for empty state
+        const usersAnswerList = document.querySelector('.usersAnswer');
+        if (usersAnswerList.children.length === 0) {
+            usersAnswerList.innerHTML = '<li style="color: #888; font-style: italic;">No submissions yet. Fill out the form above!</li>';
+            usersAnswerList.classList.add('empty');
+        }
+    </script>
+</body>
+</html>

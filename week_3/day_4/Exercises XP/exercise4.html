@@ -1,0 +1,218 @@
+<!doctype html> 
+<html lang="en"> 
+    <head> 
+        <meta charset="utf-8"> 
+        <title>Volume of a Sphere</title> 
+        <style>  
+            body {
+                padding-top: 30px;
+                font-family: Arial, sans-serif;
+                max-width: 600px;
+                margin: 0 auto;
+                background-color: #f5f5f5;
+                line-height: 1.6;
+            }
+            
+            .container {
+                background-color: white;
+                padding: 30px;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                margin: 20px;
+            }
+
+            label, input {
+                display: block;
+                margin-bottom: 10px;
+            }
+            
+            label {
+                font-weight: bold;
+                color: #333;
+                margin-top: 15px;
+            }
+            
+            input[type="text"] {
+                width: 100%;
+                padding: 10px;
+                border: 2px solid #ddd;
+                border-radius: 4px;
+                font-size: 16px;
+                box-sizing: border-box;
+            }
+            
+            input[type="text"]:focus {
+                border-color: #4CAF50;
+                outline: none;
+                box-shadow: 0 0 5px rgba(76,175,80,0.3);
+            }
+            
+            input[type="submit"] {
+                background-color: #4CAF50;
+                color: white;
+                padding: 12px 24px;
+                border: none;
+                border-radius： 4px;
+                cursor: pointer;
+                font-size: 16px;
+                margin-top: 20px;
+                width: 100%;
+            }
+            
+            input[type="submit"]:hover {
+                background-color: #45a049;
+            }
+            
+            .formula {
+                background-color: #e8f5e8;
+                padding: 15px;
+                border-radius: 4px;
+                border-left: 4px solid #4CAF50;
+                margin-bottom: 20px;
+                font-family: monospace;
+            }
+            
+            .error {
+                color: #ff4444;
+                font-size: 14px;
+                margin-top: 10px;
+                padding: 10px;
+                background-color: #ffeaea;
+                border-radius: 4px;
+                border-left: 4px solid #ff4444;
+                display: none;
+            }
+            
+            .success {
+                color: #2e7d32;
+                font-size: 14px;
+                margin-top: 10px;
+                padding: 10px;
+                background-color: #e8f5e8;
+                border-radius: 4px;
+                border-left: 4px solid #4CAF50;
+                display: none;
+            }
+        </style> 
+    </head> 
+    <body>
+        <div class="container">
+            <h1>🔮 Volume of a Sphere Calculator</h1>
+            
+            <div class="formula">
+                <strong>Formula:</strong> V = (4/3) × π × r³<br>
+                <strong>Where:</strong> V = Volume, r = Radius
+            </div>
+            
+            <p>Input radius value and get the volume of a sphere.</p>
+            
+            <form id="MyForm">
+                <label for="radius">Radius (units)</label>
+                <input type="text" name="radius" id="radius" required placeholder="e.g., 5"> 
+                <div class="error" id="errorMessage"></div>
+                
+                <label for="volume">Volume (cubic units)</label>
+                <input type="text" name="volume" id="volume" readonly placeholder="Volume will appear here">
+                <div class="success" id="successMessage"></div>
+                
+                <input type="submit" value="Calculate Volume" id="submit">
+            </form>
+        </div>
+        
+        <script>
+            // Function to calculate the volume of a sphere
+            // Formula: V = (4/3) * π * r³
+            function calculateSphereVolume(radius) {
+                // Constants
+                const PI = Math.PI;
+                
+                // Calculate Volume
+                const volume = (4 / 3) * PI * Math.pow(radius, 3);
+                
+                return volume;
+            }
+            
+            // Function to validate input
+            function validateRadius(radius) {
+                const numRadius = parseFloat(radius);
+                
+                // Check if input is a valid number
+                if (isNaN(numRadius)) {
+                    return { isValid: false, message: "Please enter a valid number for radius." };
+                }
+                
+                // Check if radius is positive
+                if (numRadius <= 0) {
+                    return { isValid: false, message: "Radius must be greater than 0." };
+                }
+                
+                return { isValid: true, value: numRadius };
+            }
+            
+            // Function to update error message
+            function showError(message) {
+                const errorElement = document.getElementById('errorMessage');
+                const successElement = document.getElementById('successMessage');
+                
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+                successElement.style.display = 'none';
+            }
+            
+            // Function to update success message
+            function showSuccess(message) {
+                const errorElement = document.getElementById('errorMessage');
+                const successElement = document.getElementById('successMessage');
+                
+                successElement.textContent = message;
+                successElement.style.display = 'block';
+                errorElement.style.display = 'none';
+            }
+            
+            // Add event listener to the form
+            document.getElementById('MyForm').addEventListener('submit', function(event) {
+                // Prevent the default form submission
+                event.preventDefault();
+                
+                // Get the radius value from the input
+                const radiusInput = document.getElementById('radius');
+                const volumeInput = document.getElementById('volume');
+                const radius = radiusInput.value.trim();
+                
+                // Validate input
+                const validation = validateRadius(radius);
+                
+                if (!validation.isValid) {
+                    showError(validation.message);
+                    volumeInput.value = "";
+                    return;
+                }
+                
+                // Calculate volume
+                const volume = calculateSphereVolume(validation.value);
+                
+                // Update the volume input field with the result
+                volumeInput.value = volume.toFixed(2);
+                
+                // Show success message
+                showSuccess(`Volume calculated successfully! The sphere with radius ${validation.value} has a volume of ${volume.toFixed(2)} cubic units.`);
+                
+                // Console log for debugging
+                console.log(`Sphere Calculation:`);
+                console.log(`- Radius: ${validation.value} units`);
+                console.log(`- Volume: ${volume.toFixed(2)} cubic units`);
+                console.log(`- Formula: V = (4/3) × π × ${validation.value}³ = ${volume.toFixed(2)}`);
+            });
+            
+            // Additional event listener for real-time validation as user types
+            document.getElementById('radius').addEventListener('input', function() {
+                // Clear messages when user starts typing
+                document.getElementById('errorMessage').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'none';
+            });
+            
+            // Initialize console message
+            console.log("Sphere Volume Calculator initialized! Ready to calculate volumes.");
+        </script>
+    </body> 
+</html>
