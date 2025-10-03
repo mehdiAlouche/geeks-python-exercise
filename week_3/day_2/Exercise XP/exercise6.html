@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 6 - Navigation Bar DOM Manipulation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        #socialNetworkNavigation {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        #socialNetworkNavigation ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+        
+        #socialNetworkNavigation li {
+            position: relative;
+        }
+        
+        #socialNetworkNavigation a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            display: block;
+        }
+        
+        #socialNetworkNavigation a:hover {
+            background-color: #555;
+        }
+        
+        .exercise-info {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .exercise-info h2 {
+            color: #4a90e2;
+            margin-top: 0;
+        }
+        
+        button {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        button:hover {
+            background-color: #357abd;
+        }
+        
+        .output {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .highlight {
+            background-color: #ffeb3b !important;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="exercise-info">
+        <h2>🌟 Exercise 6: Navigation Bar DOM Manipulation</h2>
+        <p>This exercise demonstrates DOM manipulation methods including:</p>
+        <ul>
+            <li><code>setAttribute()</code> - Change element attributes</li>
+            <li><code>createElement()</code> - Create new elements</li>
+            <li><code>createTextNode()</code> - Create text nodes</li>
+            <li><code>appendChild()</code> - Add elements to DOM</li>
+            <li><code>firstElementChild</code> & <code>lastElementChild</code> - Navigate DOM tree</li>
+            <li><code>textContent</code> - Get/set text content</li>
+        </ul>
+        
+        <button onclick="runExercise6()">Run Exercise 6</button>
+        <button onclick="resetNavigationBar()">Reset Navigation Bar</button>
+        <button onclick="showDetailedSteps()">Show Detailed Steps</button>
+        <div id="output" class="output"></div>
+    </div>
+    
+    <!-- The navigation bar we'll manipulate -->
+    <div id="navBar">
+        <ul>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">My Friends</a></li>
+            <li><a href="#">Messenger</a></li>
+            <li><a href="#">My Pics</a></li>
+        </ul>
+    </div>
+
+    <script src="exercise6.js"></script>
+</body>
+</html>

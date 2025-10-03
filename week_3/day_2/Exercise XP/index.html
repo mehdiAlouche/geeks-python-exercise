@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Exercise XP - Week 3 - Day 2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #4a90e2;
+            border-bottom: 2px solid #4a90e2;
+            padding-bottom: 10px;
+        }
+        
+        button {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #357abd;
+        }
+        
+        .output {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .exercise-info {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .exercise-links {
+            margin: 20px 0;
+        }
+        
+        .exercise-links a {
+            display: inline-block;
+            margin: 5px;
+            padding: 8px 15px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        
+        .exercise-links a:hover {
+            background-color: #218838;
+        }
+        
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌟 JavaScript Exercises - Week 3</h1>
+        
+        <div class="exercise-info">
+            <h3>📋 Quick Navigation</h3>
+            <div class="exercise-links">
+                <a href="exercise1.js" target="_blank">📁 Exercise 1</a>
+                <a href="exercise2.js" target="_blank">📁 Exercise 2</a>
+                <a href="exercise3.js" target="_blank">📁 Exercise 3</a>
+                <a href="exercise4.js" target="_blank">📁 Exercise 4</a>
+                <a href="exercise5.html" target="_blank">📁 Exercise 5</a>
+                <a href="exercise6.html" target="_blank">📁 Exercise 6</a>
+                <a href="exercise7.html" target="_blank">📁 Exercise 7</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <h2>🌟 Exercise 1: Numbers Divisible by 23</h2>
+            <button onclick="runExercise1()">Run Exercise 1</button>
+            <button onclick="runExercise1Bonus()">Run Exercise 1 Bonus (different divisor)</button>
+            <div id="output1" class="output"></div>
+        </div>
+
+        <div class="container">
+            <h2>🛒 Exercise 2: Shopping List</h2>
+            <button onclick="runExercise2()">Run Exercise 2</button>
+            <button onclick="runExercise2Bonus()">Run Exercise 2 Bonus (with stock update)</button>
+            <div id="output2" class="output"></div>
+        </div>
+
+        <div class="container">
+            <h2>💰 Exercise 3: What's in my wallet?</h2>
+            <button onclick="runExercise3()">Run Exercise 3</button>
+            <div id="output3" class="output"></div>
+        </div>
+
+        <div class="container">
+            <h2>✈️ Exercise 4: Vacation Costs</h2>
+            <button onclick="runExercise4()">Run Exercise 4</button>
+            <button onclick="runExercise4Prompt()">Run Exercise 4 with Prompts</button>
+            <div id="output4" class="output"></div>
+        </div>
+
+        <div class="container">
+            <h2>👥 Exercise 5: Users HTML Manipulation</h2>
+            <button onclick="openExercise5()">Open Exercise 5 in New Tab</button>
+            <p><em>Note: Exercise 5 requires opening the HTML file in a browser to see DOM manipulation effects</em></p>
+        </div>
+
+        <div class="container">
+            <h2>🧭 Exercise 6: Navigation Bar DOM Manipulation</h2>
+            <button onclick="openExercise6()">Open Exercise 6 in New Tab</button>
+            <p><em>Note: Exercise 6 requires opening the HTML file in a browser to see DOM manipulation effects</em></p>
+        </div>
+
+        <div class="container">
+            <h2>📚 Exercise 7: My Book List</h2>
+            <button onclick="openExercise7()">Open Exercise 7 in New Tab</button>
+            <p><em>Note: Exercise 7 requires opening the HTML file in a browser to see book rendering and DOM manipulation</em></p>
+        </div>
+    </div>
+
+    <script>
+        // Exercise 1 functions
+        function runExercise1() {
+            const output = document.getElementById('output1');
+            output.textContent = 'Exercise 1: Numbers divisible by 23\n\n';
+            
+            // Copy the main logic from exercise1.js but adapted for browser output
+            let numbersDivisible = [];
+            let sum = 0;
+            
+            for (let i = 0; i <= 500; i++) {
+                if (i % 23 === 0) {
+                    numbersDivisible.push(i);
+                    sum += i;
+                }
+            }
+            
+            output.textContent += `Numbers divisible by 23:\n${numbersDivisible.join(' ')}\n\n`;
+            output.textContent += `Sum: ${sum}`;
+            
+            console.log("Exercise 1 completed - Check console for detailed output");
+        }
+        
+        function runExercise1Bonus() {
+            const divisor = Number(prompt("Enter a divisor:"));
+            if (isNaN(divisor)) {
+                alert("Please enter a valid number!");
+                return;
+            }
+            
+            const output = document.getElementById('output1');
+            output.textContent = `Exercise 1 Bonus: Numbers divisible by ${divisor}\n\n`;
+            
+            let numbersDivisible = [];
+            let sum = 0;
+            
+            for (let i = 0; i <= 500; i++) {
+                if (i % divisor === 0) {
+                    numbersDivisible.push(i);
+                    sum += i;
+                }
+            }
+            
+            output.textContent += `Numbers divisible by ${divisor}:\n${numbersDivisible.join(' ')}\n\n`;
+            output.textContent += `Sum: ${sum}`;
+            
+            console.log("Exercise 1 Bonus completed - Check console for detailed output");
+        }
+        
+        // Exercise 2 functions
+        function runExercise2() {
+            const output = document.getElementById('output2');
+            output.textContent = 'Exercise 2: Shopping List\n\n';
+            
+            const stock = { 
+                "banana": 6, 
+                "apple": 0,
+                "pear": 12,
+                "orange": 32,
+                "blueberry": 1
+            };
+            
+            const prices = {    
+                "banana": 4, 
+                "apple": 2, 
+                "pear": 1,
+                "orange": 1.5,
+                "blueberry": 10
+            };
+            
+            const shoppingList = ["banana", "orange", "apple"];
+            
+            let totalBill = 0;
+            
+            output.textContent += `Shopping List: ${shoppingList.join(', ')}\n`;
+            output.textContent += `Processing items...\n\n`;
+            
+            for (let item of shoppingList) {
+                if (item in stock && stock[item] > 0) {
+                    let itemPrice = prices[item];
+                    output.textContent += `✓ ${item}: $${itemPrice} (in stock: ${stock[item]})\n`;
+                    totalBill += itemPrice;
+                } else {
+                    output.textContent += `✗ ${item}: Not available or out of stock\n`;
+                }
+            }
+            
+            output.textContent += `\nTotal Bill: $${totalBill}`;
+            
+            console.log("Exercise 2 completed - Check console for detailed output");
+        }
+        
+        function runExercise2Bonus() {
+            runExercise2(); // Same as regular since bonus just updates stock
+            const output = document.getElementById('output2');
+            output.textContent += '\n\n(Bonus: Stock would be decreased by 1 for purchased items)';
+            
+            console.log("Exercise 2 Bonus completed - Check console for detailed output");
+        }
+        
+        // Exercise 3 functions
+        function runExercise3() {
+            const output = document.getElementById('output3');
+            output.textContent = 'Exercise 3: Change Calculator\n\n';
+            
+            // Test cases
+            const testCases = [
+                { price: 4.25, change: [25, 20, 5, 0], expected: true },
+                { price: 14.11, change: [2, 100, 0, 0], expected: false },
+                { price: 0.75, change: [0, 0, 20, 5], expected: true }
+            ];
+            
+            testCases.forEach((testCase, index) => {
+                const { price, change } = testCase;
+                const quartersValue = change[0] * 0.25;
+                const dimesValue = change[1] * 0.10;
+                const nickelsValue = change[2] * 0.05;
+                const penniesValue = change[3] * 0.01;
+                const totalChange = quartersValue + dimesValue + nickelsValue + penniesValue;
+                const canAfford = totalChange >= price;
+                
+                output.textContent += `Test ${index + 1}: changeEnough(${price}, [${change.join(', ')}])\n`;
+                output.textContent += `  ${change[0]} quarters × $0.25 = $${quartersValue.toFixed(2)}\n`;
+                output.textContent += `  ${change[1]} dimes × $0.10 = $${dimesValue.toFixed(2)}\n`;
+                output.textContent += `  ${change[2]} nickels × $0.05 = $${nickelsValue.toFixed(2)}\n`;
+                output.textContent += `  ${change[3]} pennies × $0.01 = $${penniesValue.toFixed(2)}\n`;
+                output.textContent += `  Total Change: $${totalChange.toFixed(2)}\n`;
+                output.textContent += `  Can afford: ${canAfford}\n\n`;
+            });
+            
+            console.log("Exercise 3 completed - Check console for detailed output");
+        }
+        
+        // Exercise 4 functions
+        function runExercise4() {
+            const output = document.getElementById('output4');
+            output.textContent = 'Exercise 4: Vacation Costs\n\n';
+            
+            // Sample vacation scenario
+            const nights = 5;
+            const destination = "London";
+            const days = 7;
+            
+            // Calculate costs
+            const hotelCost = nights * 140;
+            let planeCost;
+            switch (destination.toLowerCase()) {
+                case "london": planeCost = 183; break;
+                case "paris": planeCost = 220; break;
+                default: planeCost = 300;
+            }
+            let carCost = days * 40;
+            if (days > 10) {
+                carCost *= 0.95; // 5% discount
+            }
+            
+            const totalCost = hotelCost + planeCost + carCost;
+            
+            output.textContent += `Vacation Details:\n`;
+            output.textContent += `- ${nights} nights hotel: $${hotelCost}\n`;
+            output.textContent += `- Destination ${destination}: $${planeCost}\n`;
+            output.textContent += `- ${days} days car rental: $${carCost}\n`;
+            output.textContent += `Total Vacation Cost: $${totalCost}`;
+            
+            console.log("Exercise 4 completed - Check console for detailed output");
+        }
+        
+        function runExercise4Prompt() {
+            const nights = prompt("How many nights in hotel?") || "5";
+            const destination = prompt("Destination?") || "London";
+            const days = prompt("Days car rental?") || "7";
+            
+            runExercise4(); // Update the output with user inputs
+            const output = document.getElementById('output4');
+            output.textContent = `Exercise 4: Vacation Costs (User Input)\n\n`;
+            
+            const hotelCost = parseInt(nights) * 140;
+            let planeCost;
+            switch (destination.toLowerCase()) {
+                case "london": planeCost = 183; break;
+                case "paris": planeCost = 220; break;
+                default: planeCost = 300;
+            }
+            let carCost = parseInt(days) * 40;
+            if (parseInt(days) > 10) {
+                carCost *= 0.95;
+            }
+            
+            const totalCost = hotelCost + planeCost + carCost;
+            
+            output.textContent += `Vacation Details:\n`;
+            output.textContent += `- ${nights} nights hotel: $${hotelCost}\n`;
+            output.textContent += `- Destination ${destination}: $${planeCost}\n`;
+            output.textContent += `- ${days} days car rental: $${carCost.toFixed(2)}\n`;
+            output.textContent += `Total Vacation Cost: $${totalCost.toFixed(2)}`;
+            
+            console.log("Exercise 4 with prompts completed - Check console for detailed output");
+        }
+        
+        // Exercise 5 function
+        function openExercise5() {
+            window.open('exercise5.html', '_blank');
+        }
+        
+        // Exercise 6 function
+        function openExercise6() {
+            window.open('exercise6.html', '_blank');
+        }
+        
+        // Exercise 7 function
+        function openExercise7() {
+            window.open('exercise7.html', '_blank');
+        }
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("🌟 JavaScript Exercises - Week 1");
+            console.log("All exercises are ready to run!");
+            console.log("Open browser console to see detailed outputs from individual exercise files.");
+        });
+    </script>
+</body>
+</html>
