@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 2: Delete Colors</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .exercise-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+        }
+        
+        .exercise-section h2 {
+            color: #2d3436;
+            margin-top: 0;
+        }
+        
+        form {
+            margin: 20px 0;
+        }
+        
+        select {
+            width: 200px;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            background-color: white;
+            margin-right: 10px;
+        }
+        
+        select:focus {
+            outline: none;
+            border-color: #ff6b6b;
+        }
+        
+        input[type="button"] {
+            background-color: #ff6b6b;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        input[type="button"]:hover {
+            background-color: #ee5a24;
+        }
+        
+        input[type="button"]:disabled {
+            background-color: #b2bec3;
+            cursor: not-allowed;
+        }
+        
+        .result {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #28a745;
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #17a2b8;
+        }
+        
+        .code-example {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        .color-preview {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 8px;
+            vertical-align: middle;
+            border: 2px solid #333;
+        }
+        
+        .reset-btn {
+            background-color: #6c757d;
+            margin-left: 10px;
+        }
+        
+        .reset-btn:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Exercise 2: Delete Colors</h1>
+        
+        <div class="exercise-section">
+            <h2>Color Selection and Removal</h2>
+            <div class="info">
+                💡 Select a color from the dropdown and click "Select and Remove" to delete it from the list
+            </div>
+            
+            <form>
+                <select id="colorSelect">
+                    <option value="red">Red</option>
+                    <option value="green">Green</option>
+                    <option value="white">White</option>
+                    <option value="black">Black</option>
+                </select>
+                <input type="button" value="Select and Remove" id="removeBtn">
+                <input type="button" value="Reset Colors" class="reset-btn" id="resetBtn">
+            </form>
+            
+            <div id="message"></div>
+        </div>
+        
+        <div class="exercise-section">
+            <h2>Enhanced Color Manager</h2>
+            <div class="info">
+                💡 Try the enhanced version with more colors and better feedback
+            </div>
+            
+            <form>
+                <select id="enhancedColorSelect">
+                    <option value="red">🔴 Red</option>
+                    <option value="green">🟢 Green</option>
+                    <option value="blue">🔵 Blue</option>
+                    <option value="yellow">🟡 Yellow</option>
+                    <option value="purple">🟣 Purple</option>
+                    <option value="orange">🟠 Orange</option>
+                    <option value="pink">🩷 Pink</option>
+                    <option value="brown">🤎 Brown</option>
+                </select>
+                <input type="button" value="Remove Selected" id="enhancedRemoveBtn">
+                <input type="button" value="Reset All" class="reset-btn" id="enhancedResetBtn">
+            </form>
+            
+            <div id="enhancedMessage"></div>
+        </div>
+        
+        <div class="code-example">
+            <strong>JavaScript Implementation:</strong><br>
+            function removecolor() {<br>
+            &nbsp;&nbsp;const colorSelect = document.getElementById('colorSelect');<br>
+            &nbsp;&nbsp;const selectedIndex = colorSelect.selectedIndex;<br>
+            &nbsp;&nbsp;if (selectedIndex !== -1) {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;colorSelect.remove(selectedIndex);<br>
+            &nbsp;&nbsp;}<br>
+            }<br><br>
+            
+            // Add click event listener<br>
+            document.getElementById('removeBtn').addEventListener('click', removecolor);
+        </div>
+    </div>
+
+    <script>
+        // Exercise 2: Delete Colors
+        
+        // Original removecolor function as requested
+        function removecolor() {
+            const colorSelect = document.getElementById('colorSelect');
+            const selectedIndex = colorSelect.selectedIndex;
+            const messageDiv = document.getElementById('message');
+            
+            if (selectedIndex !== -1) {
+                const selectedOption = colorSelect.options[selectedIndex];
+                const selectedColor = selectedOption.textContent;
+                
+                // Remove the selected option
+                colorSelect.remove(selectedIndex);
+                
+                // Show success message
+                messageDiv.innerHTML = `<div class="result">✅ Successfully removed "${selectedColor}" from the list!</div>`;
+                
+                console.log(`Removed color: ${selectedColor}`);
+                
+                // Check if no colors left
+                if (colorSelect.options.length === 0) {
+                    messageDiv.innerHTML = '<div class="error">⚠️ No colors left! Click "Reset Colors" to restore the list.</div>';
+                    document.getElementById('removeBtn').disabled = true;
+                }
+            } else {
+                messageDiv.innerHTML = '<div class="error">❌ No color selected to remove!</div>';
+            }
+        }
+        
+        // Enhanced removecolor function with better features
+        function enhancedRemovecolor() {
+            const colorSelect = document.getElementById('enhancedColorSelect');
+            const selectedIndex = colorSelect.selectedIndex;
+            const messageDiv = document.getElementById('enhancedMessage');
+            
+            if (selectedIndex !== -1) {
+                const selectedOption = colorSelect.options[selectedIndex];
+                const selectedColor = selectedOption.textContent;
+                
+                // Remove the selected option
+                colorSelect.remove(selectedIndex);
+                
+                // Show success message
+                messageDiv.innerHTML = `<div class="result">✅ Successfully removed "${selectedColor}" from the list!</div>`;
+                
+                console.log(`Enhanced: Removed color: ${selectedColor}`);
+                
+                // Check if no colors left
+                if (colorSelect.options.length === 0) {
+                    messageDiv.innerHTML = '<div class="error">⚠️ No colors left! Click "Reset All" to restore the list.</div>';
+                    document.getElementById('enhancedRemoveBtn').disabled = true;
+                } else {
+                    // Auto-select the first option after removal
+                    colorSelect.selectedIndex = 0;
+                }
+            } else {
+                messageDiv.innerHTML = '<div class="error">❌ No color selected to remove!</div>';
+            }
+        }
+        
+        // Reset function for original colors
+        function resetColors() {
+            const colorSelect = document.getElementById('colorSelect');
+            const messageDiv = document.getElementById('message');
+            
+            // Clear existing options
+            colorSelect.innerHTML = '';
+            
+            // Add back original colors
+            const originalColors = [
+                { value: 'red', text: 'Red' },
+                { value: 'green', text: 'Green' },
+                { value: 'white', text: 'White' },
+                { value: 'black', text: 'Black' }
+            ];
+            
+            originalColors.forEach(color => {
+                const option = document.createElement('option');
+                option.value = color.value;
+                option.textContent = color.text;
+                colorSelect.appendChild(option);
+            });
+            
+            // Reset UI
+            messageDiv.innerHTML = '<div class="result">🔄 Colors list has been reset!</div>';
+            document.getElementById('removeBtn').disabled = false;
+            
+            console.log('Original colors reset');
+        }
+        
+        // Reset function for enhanced colors
+        function resetEnhancedColors() {
+            const colorSelect = document.getElementById('enhancedColorSelect');
+            const messageDiv = document.getElementById('enhancedMessage');
+            
+            // Clear existing options
+            colorSelect.innerHTML = '';
+            
+            // Add back enhanced colors
+            const enhancedColors = [
+                { value: 'red', text: '🔴 Red' },
+                { value: 'green', text: '🟢 Green' },
+                { value: 'blue', text: '🔵 Blue' },
+                { value: 'yellow', text: '🟡 Yellow' },
+                { value: 'purple', text: '🟣 Purple' },
+                { value: 'orange', text: '🟠 Orange' },
+                { value: 'pink', text: '🩷 Pink' },
+                { value: 'brown', text: '🤎 Brown' }
+            ];
+            
+            enhancedColors.forEach(color => {
+                const option = document.createElement('option');
+                option.value = color.value;
+                option.textContent = color.text;
+                colorSelect.appendChild(option);
+            });
+            
+            // Reset UI
+            messageDiv.innerHTML = '<div class="result">🔄 Enhanced colors list has been reset!</div>';
+            document.getElementById('enhancedRemoveBtn').disabled = false;
+            
+            console.log('Enhanced colors reset');
+        }
+        
+        // Initialize the exercise
+        function initializeExercise() {
+            console.log('Exercise 2: Delete Colors initialized');
+            
+            // Add click event listeners as requested
+            document.getElementById('removeBtn').addEventListener('click', removecolor);
+            document.getElementById('enhancedRemoveBtn').addEventListener('click', enhancedRemovecolor);
+            
+            // Add reset functionality
+            document.getElementById('resetBtn').addEventListener('click', resetColors);
+            document.getElementById('enhancedResetBtn').addEventListener('click', resetEnhancedColors);
+            
+            console.log('All event listeners attached successfully');
+        }
+        
+        // Run initialization when page loads
+        document.addEventListener('DOMContentLoaded', initializeExercise);
+        
+        // Additional demonstration: Show current selection
+        function showCurrentSelection() {
+            const colorSelect = document.getElementById('colorSelect');
+            colorSelect.addEventListener('change', function() {
+                console.log('Current selection:', this.value);
+            });
+            
+            const enhancedColorSelect = document.getElementById('enhancedColorSelect');
+            enhancedColorSelect.addEventListener('change', function() {
+                console.log('Enhanced current selection:', this.value);
+            });
+        }
+        
+        // Initialize selection tracking
+        showCurrentSelection();
+    </script>
+</body>
+</html>
