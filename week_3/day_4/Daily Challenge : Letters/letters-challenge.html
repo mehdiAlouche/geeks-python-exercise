@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Challenge: Letters Only</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .letters-only {
+            border-color: #4CAF50;
+        }
+        
+        .error {
+            border-color: #f44336;
+        }
+        
+        .feedback {
+            margin-top: 10px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error-msg {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        .examples {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .examples h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        
+        .example-item {
+            margin: 5px 0;
+            padding: 5px;
+        }
+        
+        .allowed {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .not-allowed {
+            color: #dc3545;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔤 Daily Challenge: Letters Only</h1>
+        
+        <div class="input-group">
+            <label for="lettersInput">Enter text (letters only):</label>
+            <input type="text" id="lettersInput" placeholder="Type here... only letters will be accepted">
+            <div id="feedback" class="feedback info">
+                💡 Try typing letters, numbers, and special characters to see the filtering in action!
+            </div>
+        </div>
+        
+        <div class="examples">
+            <h3>Examples:</h3>
+            <div class="example-item">
+                <span class="allowed">✅ Allowed:</span> "Hello", "World", "JavaScript", "ABC", "xyz"
+            </div>
+            <div class="example-item">
+                <span class="not-allowed">❌ Not Allowed:</span> "Hello123", "World!", "Java@Script", "ABC123", "x1y2z3"
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get the input element and feedback div
+        const lettersInput = document.getElementById('lettersInput');
+        const feedback = document.getElementById('feedback');
+        
+        // Function to check if character is a letter
+        function isLetter(char) {
+            return /^[a-zA-Z]$/.test(char);
+        }
+        
+        // Function to filter out non-letter characters
+        function filterLetters(value) {
+            return value.split('').filter(char => isLetter(char)).join('');
+        }
+        
+        // Function to update feedback message
+        function updateFeedback(value, originalValue) {
+            const filteredValue = filterLetters(value);
+            const removedChars = value.length - filteredValue.length;
+            
+            if (removedChars > 0) {
+                feedback.className = 'feedback error-msg';
+                feedback.innerHTML = `🚫 Removed ${removedChars} non-letter character(s). Only letters are allowed!`;
+            } else if (filteredValue.length > 0) {
+                feedback.className = 'feedback success';
+                feedback.innerHTML = `✅ Perfect! "${filteredValue}" contains only letters.`;
+            } else {
+                feedback.className = 'feedback info';
+                feedback.innerHTML = '💡 Type some letters to see the magic happen!';
+            }
+        }
+        
+        // Method 1: Using 'input' event (recommended - works for all input methods)
+        lettersInput.addEventListener('input', function(e) {
+            const originalValue = e.target.value;
+            const filteredValue = filterLetters(originalValue);
+            
+            // Update the input value to only contain letters
+            if (originalValue !== filteredValue) {
+                e.target.value = filteredValue;
+                e.target.className = 'error';
+                
+                // Reset to normal styling after a short delay
+                setTimeout(() => {
+                    e.target.className = filteredValue.length > 0 ? 'letters-only' : '';
+                }, 200);
+            } else {
+                e.target.className = filteredValue.length > 0 ? 'letters-only' : '';
+            }
+            
+            updateFeedback(originalValue, filteredValue);
+            console.log('Input event - Original:', originalValue, 'Filtered:', filteredValue);
+        });
+        
+        // Method 2: Using 'keydown' event (alternative approach)
+        lettersInput.addEventListener('keydown', function(e) {
+            // Allow special keys (backspace, delete, arrow keys, etc.)
+            const allowedKeys = [
+                'Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 
+                'ArrowUp', 'ArrowDown', 'Tab', 'Enter', 'Home', 'End'
+            ];
+            
+            // If it's an allowed key, let it through
+            if (allowedKeys.includes(e.key)) {
+                return;
+            }
+            
+            // If it's not a letter, prevent the key from being entered
+            if (!isLetter(e.key)) {
+                e.preventDefault();
+                console.log('Keydown event - Blocked key:', e.key);
+                
+                // Show brief error feedback
+                feedback.className = 'feedback error-msg';
+                feedback.innerHTML = `🚫 "${e.key}" is not allowed. Only letters please!`;
+                
+                // Reset feedback after 1 second
+                setTimeout(() => {
+                    updateFeedback(lettersInput.value, lettersInput.value);
+                }, 1000);
+            }
+        });
+        
+        // Method 3: Using 'keypress' event (another alternative)
+        lettersInput.addEventListener('keypress', function(e) {
+            // Only allow letter characters
+            if (!isLetter(e.key)) {
+                e.preventDefault();
+                console.log('Keypress event - Blocked key:', e.key);
+            }
+        });
+        
+        // Method 4: Using 'keyup' event (for demonstration)
+        lettersInput.addEventListener('keyup', function(e) {
+            const currentValue = e.target.value;
+            const filteredValue = filterLetters(currentValue);
+            
+            // If the current value contains non-letters, filter it
+            if (currentValue !== filteredValue) {
+                e.target.value = filteredValue;
+                console.log('Keyup event - Filtered value:', filteredValue);
+            }
+        });
+        
+        // Initialize
+        console.log('Letters-only input initialized');
+        console.log('Available methods: input, keydown, keypress, keyup');
+        
+        // Add some helpful console information
+        console.log('Try typing: "Hello123!" to see filtering in action');
+    </script>
+</body>
+</html>
