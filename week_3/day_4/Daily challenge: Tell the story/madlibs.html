@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8" />
+  <title>Challenge: Mad Libs</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    
+    form {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: inline-block;
+      width: 120px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    input[type="text"] {
+      width: 200px;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-right: 10px;
+    }
+    
+    button:hover {
+      background-color: #45a049;
+    }
+    
+    #shuffle-button {
+      background-color: #2196F3;
+    }
+    
+    #shuffle-button:hover {
+      background-color: #1976D2;
+    }
+    
+    #story {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      font-size: 18px;
+      line-height: 1.6;
+      min-height: 100px;
+    }
+    
+    .error {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+ </head>
+ <body>
+
+    <h1>Mad Libs</h1>
+
+    <form id="libform">
+        <label for="noun">Noun:</label><input type="text" id="noun"><br>
+        <label for="adjective">Adjective:</label><input type="text" id="adjective"><br>
+        <label for="person">Someone's Name:</label><input type="text" id="person"><br>
+        <label for="verb">Verb:</label><input type="text" id="verb"><br>
+        <label for="place">A place:</label><input type="text" id="place"><br>
+        <button id="lib-button">Lib it!</button>
+        <button type="button" id="shuffle-button">Shuffle Story</button>
+    </form>
+
+    <p>Generated story: 
+    <span id="story"></span>
+    </p>
+
+    <script>
+        // Get form and story elements
+        const form = document.getElementById('libform');
+        const storySpan = document.getElementById('story');
+        const shuffleButton = document.getElementById('shuffle-button');
+        
+        // Array to store multiple story templates
+        const storyTemplates = [
+            "Once upon a time, there was a {adjective} {noun} named {person}. They loved to {verb} at the {place}. It was the most amazing adventure ever!",
+            
+            "In a land far away, {person} discovered a magical {noun} that was incredibly {adjective}. They decided to {verb} all the way to the {place} to share this discovery with everyone.",
+            
+            "The {adjective} {noun} that belonged to {person} was known throughout the {place}. Every day, they would {verb} and make everyone smile with their incredible antics.",
+            
+            "At the mysterious {place}, {person} found a {adjective} {noun} that could {verb}. This discovery changed their life forever and led to many exciting adventures.",
+            
+            "The legendary {person} was famous for their {adjective} {noun} that they would {verb} with at the {place}. People came from miles around to witness this incredible sight."
+        ];
+        
+        let currentStoryIndex = 0;
+        let userInputs = {};
+        
+        // Function to validate inputs
+        function validateInputs() {
+            const inputs = ['noun', 'adjective', 'person', 'verb', 'place'];
+            const errors = [];
+            
+            for (let input of inputs) {
+                const value = document.getElementById(input).value.trim();
+                if (value === '') {
+                    errors.push(`${input} is required`);
+                } else {
+                    userInputs[input] = value;
+                }
+            }
+            
+            return errors;
+        }
+        
+        // Function to generate story
+        function generateStory(templateIndex = 0) {
+            const template = storyTemplates[templateIndex];
+            let story = template;
+            
+            // Replace placeholders with user inputs
+            for (let key in userInputs) {
+                const placeholder = `{${key}}`;
+                story = story.replace(new RegExp(placeholder, 'g'), userInputs[key]);
+            }
+            
+            return story;
+        }
+        
+        // Function to display story
+        function displayStory(templateIndex = 0) {
+            const story = generateStory(templateIndex);
+            storySpan.innerHTML = story;
+        }
+        
+        // Function to shuffle to next story
+        function shuffleStory() {
+            if (Object.keys(userInputs).length === 0) {
+                storySpan.innerHTML = '<span class="error">Please fill out the form first!</span>';
+                return;
+            }
+            
+            currentStoryIndex = (currentStoryIndex + 1) % storyTemplates.length;
+            displayStory(currentStoryIndex);
+        }
+        
+        // Form submission handler
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form from submitting
+            
+            console.log('Form submitted'); // Debug log
+            
+            // Validate inputs
+            const errors = validateInputs();
+            
+            if (errors.length > 0) {
+                storySpan.innerHTML = '<span class="error">Please fill in all fields: ' + errors.join(', ') + '</span>';
+                console.error('Validation errors:', errors);
+                return;
+            }
+            
+            console.log('User inputs:', userInputs); // Debug log
+            
+            // Generate and display the first story
+            currentStoryIndex = 0;
+            displayStory(currentStoryIndex);
+            
+            console.log('Story generated successfully'); // Debug log
+        });
+        
+        // Shuffle button handler
+        shuffleButton.addEventListener('click', function() {
+            console.log('Shuffle button clicked'); // Debug log
+            shuffleStory();
+        });
+        
+        // Initialize
+        console.log('Mad Libs game initialized'); // Debug log
+    </script>
+
+ </body>
+</html>
