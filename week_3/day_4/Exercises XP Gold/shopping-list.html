@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 3: Create a Shopping List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+            min-height: 100vh;
+        }
+        
+        #root {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .shopping-form {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #00b894;
+        }
+        
+        button {
+            background-color: #00b894;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #00a085;
+        }
+        
+        .clear-btn {
+            background-color: #e17055;
+        }
+        
+        .clear-btn:hover {
+            background-color: #d63031;
+        }
+        
+        .shopping-list {
+            margin-top: 30px;
+        }
+        
+        .list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #e8f5e8;
+            border-radius: 8px;
+        }
+        
+        .list-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2d3436;
+        }
+        
+        .item-count {
+            background-color: #00b894;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+        }
+        
+        .shopping-items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .shopping-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .item-text {
+            flex-grow: 1;
+            font-size: 16px;
+            color: #333;
+        }
+        
+        .item-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .remove-btn {
+            background-color: #e17055;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+        
+        .remove-btn:hover {
+            background-color: #d63031;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+            font-style: italic;
+        }
+        
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #17a2b8;
+        }
+        
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #28a745;
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <!-- Content will be dynamically generated by JavaScript -->
+    </div>
+
+    <script>
+        // Exercise 3: Create a shopping list
+        
+        // Create an empty array as requested
+        let shoppingList = [];
+        
+        // Get the root element
+        const root = document.getElementById('root');
+        
+        // Function to create and add the form to the DOM
+        function createForm() {
+            const formHTML = `
+                <h1>🛒 Shopping List</h1>
+                
+                <div class="info">
+                    💡 Type what you need to buy in the text field and click "Add Item" to add it to your shopping list!
+                </div>
+                
+                <div class="shopping-form">
+                    <div class="form-group">
+                        <label for="itemInput">Add new item:</label>
+                        <input type="text" id="itemInput" placeholder="Enter item to add to shopping list...">
+                    </div>
+                    <button id="addItemBtn">Add Item</button>
+                    <button id="clearAllBtn" class="clear-btn">Clear All</button>
+                </div>
+                
+                <div class="shopping-list">
+                    <div class="list-header">
+                        <div class="list-title">Your Shopping List</div>
+                        <div class="item-count" id="itemCount">0 items</div>
+                    </div>
+                    <ul class="shopping-items" id="shoppingItems">
+                        <li class="empty-state">
+                            <div class="empty-state-icon">🛍️</div>
+                            <div>Your shopping list is empty</div>
+                            <div>Add some items to get started!</div>
+                        </li>
+                    </ul>
+                </div>
+            `;
+            
+            root.innerHTML = formHTML;
+            console.log('Form created and added to DOM');
+        }
+        
+        // Function to add item to the shopping list (as requested)
+        function addItem() {
+            const itemInput = document.getElementById('itemInput');
+            const itemText = itemInput.value.trim();
+            
+            if (itemText === '') {
+                showMessage('Please enter an item to add!', 'error');
+                return;
+            }
+            
+            // Add item to the array
+            shoppingList.push(itemText);
+            
+            // Clear the input field
+            itemInput.value = '';
+            
+            // Update the display
+            updateShoppingListDisplay();
+            
+            // Show success message
+            showMessage(`✅ Added "${itemText}" to your shopping list!`, 'success');
+            
+            console.log('Added item:', itemText);
+            console.log('Current shopping list:', shoppingList);
+        }
+        
+        // Function to clear all items (as requested)
+        function clearAll() {
+            if (shoppingList.length === 0) {
+                showMessage('Shopping list is already empty!', 'error');
+                return;
+            }
+            
+            const itemCount = shoppingList.length;
+            shoppingList = []; // Clear the array
+            
+            // Update the display
+            updateShoppingListDisplay();
+            
+            // Show success message
+            showMessage(`🗑️ Cleared all ${itemCount} items from your shopping list!`, 'success');
+            
+            console.log('Cleared all items from shopping list');
+        }
+        
+        // Function to remove individual item
+        function removeItem(index) {
+            const removedItem = shoppingList[index];
+            shoppingList.splice(index, 1);
+            
+            // Update the display
+            updateShoppingListDisplay();
+            
+            // Show success message
+            showMessage(`✅ Removed "${removedItem}" from your shopping list!`, 'success');
+            
+            console.log('Removed item:', removedItem);
+            console.log('Updated shopping list:', shoppingList);
+        }
+        
+        // Function to update the shopping list display
+        function updateShoppingListDisplay() {
+            const shoppingItems = document.getElementById('shoppingItems');
+            const itemCount = document.getElementById('itemCount');
+            
+            // Update item count
+            itemCount.textContent = `${shoppingList.length} item${shoppingList.length !== 1 ? 's' : ''}`;
+            
+            if (shoppingList.length === 0) {
+                // Show empty state
+                shoppingItems.innerHTML = `
+                    <li class="empty-state">
+                        <div class="empty-state-icon">🛍️</div>
+                        <div>Your shopping list is empty</div>
+                        <div>Add some items to get started!</div>
+                    </li>
+                `;
+            } else {
+                // Show items
+                shoppingItems.innerHTML = shoppingList.map((item, index) => `
+                    <li class="shopping-item">
+                        <div class="item-text">${item}</div>
+                        <div class="item-actions">
+                            <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+                        </div>
+                    </li>
+                `).join('');
+            }
+        }
+        
+        // Function to show messages
+        function showMessage(message, type) {
+            // Remove existing messages
+            const existingMessages = document.querySelectorAll('.message');
+            existingMessages.forEach(msg => msg.remove());
+            
+            // Create new message
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.textContent = message;
+            
+            // Insert after the form
+            const form = document.querySelector('.shopping-form');
+            form.insertAdjacentElement('afterend', messageDiv);
+            
+            // Auto-remove message after 3 seconds
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 3000);
+        }
+        
+        // Function to handle Enter key in input field
+        function handleEnterKey(event) {
+            if (event.key === 'Enter') {
+                addItem();
+            }
+        }
+        
+        // Initialize the shopping list application
+        function initializeShoppingList() {
+            console.log('Exercise 3: Shopping List initialized');
+            
+            // Create the form
+            createForm();
+            
+            // Add event listeners
+            document.getElementById('addItemBtn').addEventListener('click', addItem);
+            document.getElementById('clearAllBtn').addEventListener('click', clearAll);
+            document.getElementById('itemInput').addEventListener('keypress', handleEnterKey);
+            
+            // Initial display update
+            updateShoppingListDisplay();
+            
+            console.log('All event listeners attached successfully');
+            console.log('Shopping list array initialized:', shoppingList);
+        }
+        
+        // Run initialization when page loads
+        document.addEventListener('DOMContentLoaded', initializeShoppingList);
+        
+        // Make functions globally available for onclick handlers
+        window.removeItem = removeItem;
+        
+        // Additional features for demonstration
+        function demonstrateFeatures() {
+            console.log('Available functions:');
+            console.log('- addItem(): Add item to shopping list');
+            console.log('- clearAll(): Clear all items from shopping list');
+            console.log('- removeItem(index): Remove specific item by index');
+            console.log('- shoppingList: Array containing all items');
+        }
+        
+        // Run demonstration
+        demonstrateFeatures();
+    </script>
+</body>
+</html>

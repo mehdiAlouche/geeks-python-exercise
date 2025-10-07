@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 1: Select a kind of Music</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .exercise-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+        }
+        
+        .exercise-section h2 {
+            color: #2d3436;
+            margin-top: 0;
+        }
+        
+        select {
+            width: 200px;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            background-color: white;
+            margin: 10px 0;
+        }
+        
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .result {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #28a745;
+            font-weight: bold;
+        }
+        
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #17a2b8;
+        }
+        
+        .code-example {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎵 Exercise 1: Select a kind of Music</h1>
+        
+        <div class="exercise-section">
+            <h2>Original Select Element</h2>
+            <div class="info">
+                💡 This is the original select element with Rock and Blues options
+            </div>
+            <select id="genres">
+                <option value="rock">Rock</option>
+                <option value="blues" selected>Blues</option>
+            </select>
+            <div class="result" id="originalResult">Selected value: <span id="originalValue">blues</span></div>
+        </div>
+        
+        <div class="exercise-section">
+            <h2>Enhanced Select Element</h2>
+            <div class="info">
+                💡 Classic option has been added and set as default selection
+            </div>
+            <select id="enhancedGenres">
+                <option value="rock">Rock</option>
+                <option value="blues">Blues</option>
+                <option value="classic" selected>Classic</option>
+            </select>
+            <div class="result" id="enhancedResult">Selected value: <span id="enhancedValue">classic</span></div>
+        </div>
+        
+        <div class="exercise-section">
+            <h2>Dynamic Value Display</h2>
+            <div class="info">
+                💡 Watch the selected value update in real-time as you change the selection
+            </div>
+            <select id="dynamicGenres">
+                <option value="rock">Rock</option>
+                <option value="blues">Blues</option>
+                <option value="classic" selected>Classic</option>
+                <option value="jazz">Jazz</option>
+                <option value="pop">Pop</option>
+                <option value="country">Country</option>
+            </select>
+            <div class="result" id="dynamicResult">Selected value: <span id="dynamicValue">classic</span></div>
+        </div>
+        
+        <div class="code-example">
+            <strong>JavaScript Implementation:</strong><br>
+            // Display selected value<br>
+            const selectedValue = document.getElementById('genres').value;<br>
+            console.log('Selected music genre:', selectedValue);<br><br>
+            
+            // Add Classic option and set as default<br>
+            const classicOption = document.createElement('option');<br>
+            classicOption.value = 'classic';<br>
+            classicOption.textContent = 'Classic';<br>
+            classicOption.selected = true;<br>
+            document.getElementById('genres').appendChild(classicOption);
+        </div>
+    </div>
+
+    <script>
+        // Exercise 1: Select a kind of Music
+        
+        // Part 1: Display the value of the selected option
+        function displaySelectedValue() {
+            const originalSelect = document.getElementById('genres');
+            const originalValue = originalSelect.value;
+            document.getElementById('originalValue').textContent = originalValue;
+            console.log('Original selected value:', originalValue);
+        }
+        
+        // Part 2: Add Classic option and set as default
+        function addClassicOption() {
+            const enhancedSelect = document.getElementById('enhancedGenres');
+            
+            // Create the Classic option
+            const classicOption = document.createElement('option');
+            classicOption.value = 'classic';
+            classicOption.textContent = 'Classic';
+            classicOption.selected = true; // Set as default
+            
+            // Add to the select element
+            enhancedSelect.appendChild(classicOption);
+            
+            // Update the display
+            document.getElementById('enhancedValue').textContent = classicOption.value;
+            console.log('Classic option added and set as default');
+        }
+        
+        // Event listeners for real-time value display
+        function setupEventListeners() {
+            // Original select
+            document.getElementById('genres').addEventListener('change', function() {
+                displaySelectedValue();
+            });
+            
+            // Enhanced select
+            document.getElementById('enhancedGenres').addEventListener('change', function() {
+                const value = this.value;
+                document.getElementById('enhancedValue').textContent = value;
+                console.log('Enhanced selected value:', value);
+            });
+            
+            // Dynamic select
+            document.getElementById('dynamicGenres').addEventListener('change', function() {
+                const value = this.value;
+                document.getElementById('dynamicValue').textContent = value;
+                console.log('Dynamic selected value:', value);
+            });
+        }
+        
+        // Initialize the exercise
+        function initializeExercise() {
+            console.log('Exercise 1: Select a kind of Music initialized');
+            
+            // Display initial values
+            displaySelectedValue();
+            
+            // Add Classic option (this is already in HTML, but showing the JS way)
+            addClassicOption();
+            
+            // Setup event listeners
+            setupEventListeners();
+            
+            console.log('All functionality loaded successfully');
+        }
+        
+        // Run initialization when page loads
+        document.addEventListener('DOMContentLoaded', initializeExercise);
+        
+        // Additional demonstration: Programmatically change selection
+        function demonstrateProgrammaticChange() {
+            setTimeout(() => {
+                const dynamicSelect = document.getElementById('dynamicGenres');
+                dynamicSelect.value = 'jazz';
+                document.getElementById('dynamicValue').textContent = 'jazz';
+                console.log('Programmatically changed selection to jazz');
+            }, 3000);
+        }
+        
+        // Run demonstration after 3 seconds
+        setTimeout(demonstrateProgrammaticChange, 3000);
+    </script>
+</body>
+</html>
