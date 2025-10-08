@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All JavaScript Exercises</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+        }
+        
+        /* Navigation Styles */
+        .nav-container {
+            background-color: #2c3e50;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .nav-buttons {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 0 20px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .nav-btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .nav-btn.active {
+            background-color: #e74c3c;
+        }
+        
+        /* Exercise Container Styles */
+        .exercise-section {
+            display: none;
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+        
+        .exercise-section.active {
+            display: block;
+        }
+        
+        .exercise-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .exercise-title {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #3498db;
+        }
+        
+        /* Exercise 1 Specific Styles */
+        .fade-out {
+            opacity: 0.1;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .bold-text {
+            font-weight: bold;
+        }
+        
+        .chocolate-article {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .exercise-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 20px 0;
+            font-size: 16px;
+        }
+        
+        .exercise-btn:hover {
+            background-color: #45a049;
+        }
+        
+        /* Exercise 2 Specific Styles */
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #433;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        .form-input:focus {
+            border-color: #4CAF50;
+            outline: none;
+            box-shadow: 0 0 5px rgba(76,175,80,0.3);
+        }
+        
+        .users-answer {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            min-height: 50px;
+        }
+        
+        .users-answer li {
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #e8f5e8;
+            border-radius: 4px;
+            border-left: 4px solid #4CAF50;
+            list-style: none;
+        }
+        
+        .users-answer.empty {
+            text-align: center;
+            color: #888;
+            font-style: italic;
+        }
+        
+        /* Exercise 3 Specific Styles */
+        .target-paragraph {
+            font-size: 18px;
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #fafafa;
+        }
+        
+        .target-paragraph:hover {
+            border-color: #4CAF50;
+            background-color: #f0f8f0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .instructions {
+            background-color: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #2196F3;
+            margin-bottom: 20px;
+        }
+        
+        .instructions h3 {
+            margin-top: 0;
+            color: #1976D2;
+        }
+        
+        .demo-info {
+            background-color: #f3e5f5;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #9C27B0;
+            font-style: italic;
+            color: #6a1b9a;
+            margin-top: 20px;
+        }
+        
+        /* Exercise 4 Specific Styles */
+        .formula {
+            background-color: #e8f5e8;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 4px solid #4CAF50;
+            margin-bottom: 20px;
+            font-family: monospace;
+        }
+        
+        .error {
+            color: #ff4444;
+            font-size: 14px;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #ffeaea;
+            border-radius: 4px;
+            border-left: 4px solid #ff4444;
+            display: none;
+        }
+        
+        .success {
+            color: #2e7d32;
+            font-size: 14px;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #e8f5e8;
+            border-radius: 4px;
+            border-left: 4px solid #4CAF50;
+            display: none;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-btn {
+                width: 200px;
+                text-align: center;
+            }
+            
+            .exercise-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-container">
+        <div class="nav-buttons">
+            <button class="nav-btn active" onclick="showExercise(1)">Exercise 1: Chocolate Facts</button>
+            <button class="nav-btn" onclick="showExercise(2)">Exercise 2: Form Handling</button>
+            <button class="nav-btn" onclick="showExercise(3)">Exercise 3: Transform Sentence</button>
+            <button class="nav-btn" onclick="showExercise(4)">Exercise 4: Sphere Volume</button>
+        </div>
+    </div>
+
+    <!-- Exercise 1: Chocolate Facts -->
+    <div id="exercise1" class="exercise-section active">
+        <div class="exercise-container">
+            <h1 class="exercise-title">🍫 Exercise 1: Chocolate Facts</h1>
+            
+            <article class="chocolate-article">
+                <h1>Some Facts</h1>
+                <h2>The Chocolate</h2>
+                <h3>History of the chocolate</h3>
+                <p>Chocolate is made from tropical Theobroma cacao tree seeds. 
+                Its earliest use dates back to the Olmec civilization in Mesoamerica.</p>
+                <p>After the European discovery of the Americas, chocolate became 
+                very popular in the wider world, and its demand exploded.</p>
+                <p>Chocolate has since become a popular food product that millions enjoy every day, 
+                thanks to its unique, rich, and sweet taste.</p> 
+                <p>But what effect does eating chocolate have on our health?</p> 
+            </article>
+            
+            <button class="exercise-btn" id="boldButton">Make Text Bold</button>
+        </div>
+    </div>
+
+    <!-- Exercise 2: Form Handling -->
+    <div id="exercise2" class="exercise-section">
+        <div class="exercise-container">
+            <h1 class="exercise-title">📝 Exercise 2: Form Handling</h1>
+            
+            <form class="form-container" id="userForm">
+                <label class="form-label" for="fname">First name:</label><br>
+                <input class="form-input" type="text" id="fname" name="firstname" required><br>
+                <label class="form-label" for="lname">Last name:</label><br>
+                <input class="form-input" type="text" id="lname" name="lastname" required><br><br>
+                <input class="exercise-btn" type="submit" value="Submit" id="submit">
+            </form>
+            
+            <ul class="users-answer"></ul>
+        </div>
+    </div>
+
+    <!-- Exercise 3: Transform Sentence -->
+    <div id="exercise3" class="exercise-section">
+        <div class="exercise-container">
+            <h1 class="exercise-title">✨ Exercise 3: Transform the Sentence</h1>
+            
+            <div class="instructions">
+                <h3>🎯 Exercise Instructions</h3>
+                <ul>
+                    <li>Global variable: <code>allBoldItems</code></li>
+                    <li>Function: <code>getBoldItems()</code> - collects all bold items</li>
+                    <li>Function: <code>highlight()</code> - changes bold text to blue</li>
+                    <li>Function: <code>returnItemsToDefault()</code> - changes bold text back to black</li>
+                    <li>Mouseover/Mouseout events on the paragraph below</li>
+                </ul>
+            </div>
+            
+            <h3>📝 Target Paragraph:</h3>
+            <p class="target-paragraph" id="targetParagraph">
+                <strong>Hello</strong> I hope you are enjoying <strong>this</strong> class. At the 
+                <strong>end</strong> you <strong>will</strong> be great Developers!
+                <strong>Enjoy</strong> the <strong>JavaScript</strong> lessons
+            </p>
+            
+            <div class="demo-info">
+                <strong>💡 Demo:</strong> Hover your mouse over the paragraph above to see the bold text change to blue. Move your mouse away to see it return to black!
+            </div>
+        </div>
+    </div>
+
+    <!-- Exercise 4: Sphere Volume -->
+    <div id="exercise4" class="exercise-section">
+        <div class="exercise-container">
+            <h1 class="exercise-title">🔮 Exercise 4: Volume of a Sphere Calculator</h1>
+            
+            <div class="formula">
+                <strong>Formula:</strong> V = (4/3) × π × r³<br>
+                <strong>Where:</strong> V = Volume, r = Radius
+            </div>
+            
+            <p>Input radius value and get the volume of a sphere.</p>
+            
+            <form class="form-container" id="MyForm">
+                <label class="form-label" for="radius">Radius (units)</label>
+                <input class="form-input" type="text" name="radius" id="radius" required placeholder="e.g., 5"> 
+                <div class="error" id="errorMessage"></div>
+                
+                <label class="form-label" for="volume">Volume (cubic units)</label>
+                <input class="form-input" type="text" name="volume" id="volume" readonly placeholder="Volume will appear here">
+                <div class="success" id="successMessage"></div>
+                
+                <input class="exercise-btn" type="submit" value="Calculate Volume" id="submit">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Navigation functionality
+        function showExercise(exerciseNumber) {
+            // Hide all exercises
+            const exercises = document.querySelectorAll('.exercise-section');
+            exercises.forEach(exercise => {
+                exercise.classList.remove('active');
+            });
+            
+            // Show selected exercise
+            document.getElementById(`exercise${exerciseNumber}`).classList.add('active');
+            
+            // Update navigation buttons
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Exercise 1: Chocolate Facts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Task 1: Retrieve the h1 and console.log it
+            const h1Element = document.querySelector('#exercise1 h1');
+            console.log('Exercise 1 - H1 element:', h1Element);
+
+            // Task 2: Remove the last paragraph in the article tag
+            const article = document.querySelector('#exercise1 article');
+            const paragraphs = article.querySelectorAll('p');
+            if (paragraphs.length > 0) {
+                article.removeChild(paragraphs[paragraphs.length - 1]);
+            }
+
+            // Task 3: Add event listener to change h2 background to red when clicked
+            const h2Element = document.querySelector('#exercise1 h2');
+            h2Element.addEventListener('click', function() {
+                this.style.backgroundColor = 'red';
+                this.style.color = 'white';
+                this.style.padding = '5px 10px';
+                this.style.borderRadius = '4px';
+            });
+
+            // Task 4: Add event listener to hide h3 when clicked
+            const h3Element = document.querySelector('#exercise1 h3');
+            h3Element.addEventListener('click', function() {
+                this.style.display = 'none';
+            });
+
+            // Task 5: Add button functionality to make all paragraphs bold
+            const boldButton = document.getElementById('boldButton');
+            boldButton.addEventListener('click', function() {
+                const remainingParagraphs = article.querySelectorAll('p');
+                remainingParagraphs.forEach(function(paragraph) {
+                    if (paragraph.classList.contains('bold-text')) {
+                        paragraph.classList.remove('bold-text');
+                        boldButton.textContent = 'Make Text Bold';
+                    } else {
+                        paragraph.classList.add('bold-text');
+                        boldButton.textContent = 'Make Text Normal';
+                    }
+                });
+            });
+
+            // BONUS Task 1: Random font size on h1 hover
+            h1Element.addEventListener('mouseenter', function() {
+                const randomSize = Math.floor(Math.random() * 101); // 0 to 100
+                this.style.fontSize = randomSize + 'px';
+                this.style.transition = 'font-size 0.3s ease-in-out';
+            });
+
+            h1Element.addEventListener('mouseleave', function() {
+                this.style.fontSize = ''; // Reset to original size
+            });
+
+            // BONUS Task 2: Fade out effect on second paragraph hover
+            const secondParagraph = paragraphs[1]; // Second paragraph (index 1)
+            if (secondParagraph) {
+                secondParagraph.addEventListener('mouseenter', function() {
+                    this.classList.add('fade-out');
+                });
+
+                secondParagraph.addEventListener('mouseleave', function() {
+                    this.classList.remove('fade-out');
+                });
+            }
+        });
+
+        // Exercise 2: Form Handling
+        document.addEventListener('DOMContentLoaded', function() {
+            // Task 1: Retrieve the form and console.log it
+            const form = document.getElementById('userForm');
+            console.log('Exercise 2 - Form element:', form);
+            
+            // Task 2: Retrieve the inputs by their id and console.log them
+            const firstNameInput = document.getElementById('fname');
+            const lastNameInput = document.getElementById('lname');
+            console.log('Exercise 2 - Input by ID (fname):', firstNameInput);
+            console.log('Exercise 2 - Input by ID (lname):', lastNameInput);
+            
+            // Task 3: Retrieve the inputs by their name attribute and console.log them
+            const firstnameByName = document.querySelector('input[name="firstname"]');
+            const lastnameByName = document.querySelector('input[name="lastname"]');
+            console.log('Exercise 2 - Input by name (firstname):', firstnameByName);
+            console.log('Exercise 2 - Input by name (lastname):', lastnameByName);
+            
+            // Task 4: Submit event listener
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                const firstName = firstNameInput.value.trim();
+                const lastName = lastNameInput.value.trim();
+                
+                if (firstName === '' || lastName === '') {
+                    alert('Please fill in both first name and last name!');
+                    return;
+                }
+                
+                const usersAnswerList = document.querySelector('.users-answer');
+                usersAnswerList.innerHTML = '';
+                
+                const firstNameLi = document.createElement('li');
+                firstNameLi.textContent = `First name: ${firstName}`;
+                usersAnswerList.appendChild(firstNameLi);
+                
+                const lastNameLi = document.createElement('li');
+                lastNameLi.textContent = `Last name: ${lastName}`;
+                usersAnswerList.appendChild(lastNameLi);
+                
+                form.reset();
+                
+                console.log('Exercise 2 - Form submitted successfully! First name:', firstName, 'Last name:', lastName);
+            });
+            
+            // Add some styling for empty state
+            const usersAnswerList = document.querySelector('.users-answer');
+            if (usersAnswerList.children.length === 0) {
+                usersAnswerList.innerHTML = '<li style="color: #888; font-style: italic;">No submissions yet. Fill out the form above!</li>';
+                usersAnswerList.classList.add('empty');
+            }
+        });
+
+        // Exercise 3: Transform Sentence
+        let allBoldItems = [];
+        
+        function getBoldItems() {
+            const paragraph = document.getElementById('targetParagraph');
+            allBoldItems = paragraph.querySelectorAll('strong');
+            
+            console.log('Exercise 3 - Found bold items:', allBoldItems);
+            console.log('Exercise 3 - Number of bold items:', allBoldItems.length);
+            
+            return allBoldItems;
+        }
+        
+        function highlight() {
+            if (allBoldItems.length === 0) {
+                getBoldItems();
+            }
+            
+            allBoldItems.forEach(function(boldItem) {
+                boldItem.style.color = 'blue';
+            });
+            
+            console.log('Exercise 3 - Highlighted all bold items in blue');
+        }
+        
+        function returnItemsToDefault() {
+            allBoldItems.forEach(function(boldItem) {
+                boldItem.style.color = 'black';
+            });
+            
+            console.log('Exercise 3 - Returned all bold items to default color (black)');
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const paragraph = document.getElementById('targetParagraph');
+            
+            getBoldItems();
+            
+            paragraph.addEventListener('mouseover', function() {
+                console.log('Exercise 3 - Mouse over paragraph - highlighting bold items');
+                highlight();
+            });
+            
+            paragraph.addEventListener('mouseout', function() {
+                console.log('Exercise 3 - Mouse out of paragraph - returning to default');
+                returnItemsToDefault();
+            });
+            
+            console.log('Exercise 3 initialized successfully!');
+            console.log('Exercise 3 - Total bold items found:', allBoldItems.length);
+        });
+
+        // Exercise 4: Sphere Volume
+        function calculateSphereVolume(radius) {
+            const PI = Math.PI;
+            const volume = (4 / 3) * PI * Math.pow(radius, 3);
+            return volume;
+        }
+        
+        function validateRadius(radius) {
+            const numRadius = parseFloat(radius);
+            
+            if (isNaN(numRadius)) {
+                return { isValid: false, message: "Please enter a valid number for radius." };
+            }
+            
+            if (numRadius <= 0) {
+                return { isValid: false, message: "Radius must be greater than 0." };
+            }
+            
+            return { isValid: true, value: numRadius };
+        }
+        
+        function showError(message) {
+            const errorElement = document.getElementById('errorMessage');
+            const successElement = document.getElementById('successMessage');
+            
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+            successElement.style.display = 'none';
+        }
+        
+        function showSuccess(message) {
+            const errorElement = document.getElementById('errorMessage');
+            const successElement = document.getElementById('successMessage');
+            
+            successElement.textContent = message;
+            successElement.style.display = 'block';
+            errorElement.style.display = 'none';
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('MyForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                const radiusInput = document.getElementById('radius');
+                const volumeInput = document.getElementById('volume');
+                const radius = radiusInput.value.trim();
+                
+                const validation = validateRadius(radius);
+                
+                if (!validation.isValid) {
+                    showError(validation.message);
+                    volumeInput.value = "";
+                    return;
+                }
+                
+                const volume = calculateSphereVolume(validation.value);
+                volumeInput.value = volume.toFixed(2);
+                
+                showSuccess(`Volume calculated successfully! The sphere with radius ${validation.value} has a volume of ${volume.toFixed(2)} cubic units.`);
+                
+                console.log(`Exercise 4 - Sphere Calculation:`);
+                console.log(`- Radius: ${validation.value} units`);
+                console.log(`- Volume: ${volume.toFixed(2)} cubic units`);
+                console.log(`- Formula: V = (4/3) × π × ${validation.value}³ = ${volume.toFixed(2)}`);
+            });
+            
+            document.getElementById('radius').addEventListener('input', function() {
+                document.getElementById('errorMessage').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'none';
+            });
+            
+            console.log("Exercise 4 - Sphere Volume Calculator initialized! Ready to calculate volumes.");
+        });
+
+        // Initialize console message
+        console.log("All JavaScript Exercises loaded successfully! Use the navigation to switch between exercises.");
+    </script>
+</body>
+</html>
