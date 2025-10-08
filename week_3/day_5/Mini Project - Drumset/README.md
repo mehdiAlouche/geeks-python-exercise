@@ -38,6 +38,3 @@ You can find free drum samples at:
 - [Zapsplat](https://zapsplat.com/)
 - [BBC Sound Effects](https://sound-effects.bbcrewind.co.uk/)
 
-## Fallback
-
-If no audio files are available, the application will use generated tones as fallback sounds.
