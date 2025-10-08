@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All JavaScript Exercises - Week 3 - Day 2</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .header p {
+            color: #7f8c8d;
+            margin-top: 0;
+            font-size: 1.1em;
+        }
+        
+        .exercise-section {
+            background: white;
+            margin: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .exercise-section:hover {
+            transform: translateY(-5px);
+        }
+        
+        .exercise-header {
+            background: linear-gradient(135deg, #4a90e2, #357abd);
+            color: white;
+            padding: 20px 30px;
+            margin: 0;
+        }
+        
+        .exercise-header h2 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+        
+        .exercise-content {
+            padding: 30px;
+        }
+        
+        .exercise-description {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #4a90e2;
+        }
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #4a90e2, #357abd);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(74, 144, 226, 0.3);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .output {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 15px;
+            border: 1px solid #34495e;
+        }
+        
+        /* Exercise 5 specific styles */
+        #container {
+            background-color: lightblue;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .list {
+            margin: 10px 0;
+            padding: 10px;
+            border-left: 3px solid #333;
+        }
+        
+        .student_list {
+            background-color: #f9f9f9;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .university {
+            background-color: #e8f4fd;
+            border-color: #007bff;
+        }
+        
+        .attendance {
+            border-style: dashed;
+            font-weight: bold;
+        }
+        
+        #richard-style {
+            border: 3px solid #28a745;
+            background-color: #d4edda;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        
+        /* Exercise 6 specific styles */
+        #socialNetworkNavigation {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        #socialNetworkNavigation ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        #socialNetworkNavigation li {
+            position: relative;
+        }
+        
+        #socialNetworkNavigation a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            display: block;
+        }
+        
+        #socialNetworkNavigation a:hover {
+            background-color: #555;
+        }
+        
+        .highlight {
+            background-color: #ffeb3b !important;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Exercise 7 specific styles */
+        .listBooks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            min-height: 200px;
+        }
+        
+        .book-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-left: 5px solid #3498db;
+        }
+        
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .book-card.read {
+            border-left-color: #e74c3c;
+        }
+        
+        .book-card.read .book-title,
+        .book-card.read .book-author {
+            color: #e74c3c;
+        }
+        
+        .book-image {
+            width: 100px;
+            height: auto;
+            border-radius: 8px;
+            margin: 0 auto 15px;
+            display: block;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .book-details {
+            text-align: center;
+        }
+        
+        .book-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        .book-author {
+            color: #7f8c8d;
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+        
+        .book-status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .book-status.read {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .book-status.unread {
+            background-color: #27ae60;
+            color: white;
+        }
+        
+        .placeholder {
+            text-align: center;
+            color: #bdc3c7;
+            font-style: italic;
+            padding: 40px;
+            background-color: white;
+            border-radius: 10px;
+            border: 2px dashed #bdc3c7;
+        }
+        
+        .loading {
+            opacity: 0.7;
+            transform: scale(0.95);
+            transition: all 0.5s ease;
+        }
+        
+        .loading.loaded {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .code-section {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+        
+        .code-section h3 {
+            margin-top: 0;
+            color: #3498db;
+        }
+        
+        @media (max-width: 768px) {
+            .listBooks {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            #socialNetworkNavigation ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌟 All JavaScript Exercises</h1>
+            <p>Week 3 - Day 2 - Exercise XP - Consolidated Version</p>
+        </div>
+
+        <!-- Exercise 1: Numbers Divisible by 23 -->
+        <div class="exercise-section">
+            <div class="exercise-header">
+                <h2>🔢 Exercise 1: Numbers Divisible by 23</h2>
+            </div>
+            <div class="exercise-content">
+                <div class="exercise-description">
+                    <strong>Description:</strong> Find all numbers from 0 to 500 that are divisible by 23, display them, and calculate their sum.
+                </div>
+                <div class="controls">
+                    <button onclick="runExercise1()">Run Exercise 1</button>
+                    <button onclick="runExercise1Bonus()">Run Exercise 1 Bonus (different divisor)</button>
+                </div>
+                <div id="output1" class="output">Click "Run Exercise 1" to see the results...</div>
+            </div>
+        </div>
+
+        <!-- Exercise 2: Shopping List -->
+        <div class="exercise-section">
+            <div class="exercise-header">
+                <h2>🛒 Exercise 2: Shopping List</h2>
+            </div>
+            <div class="exercise-content">
+                <div class="exercise-description">
+                    <strong>Description:</strong> Calculate the total bill for a shopping list, checking stock availability and prices.
+                </div>
+                <div class="controls">
+                    <button onclick="runExercise2()">Run Exercise 2</button>
+                    <button onclick="runExercise2Bonus()">Run Exercise 2 Bonus (with stock update)</button>
+                </div>
+                <div id="output2" class="output">Click "Run Exercise 2" to see the results...</div>
+            </div>
+        </div>
+
+        <!-- Exercise 3: What's in my wallet? -->
+        <div class="exercise-section">
+            <div class="exercise-header">
+                <h2>💰 Exercise 3: What's in my wallet?</h2>
+            </div>
+            <div class="exercise-content">
+                <div class="exercise-description">
+                    <strong>Description:</strong> Calculate if you have enough change (quarters, dimes, nickels, pennies) to afford an item.
+                </div>
+                <div class="controls">
+                    <button onclick="runExercise3()">Run Exercise 3</button>
+                </div>
+                <div id="output3" class="output">Click "Run Exercise 3" to see the results...</div>
+            </div>
+        </div>
+
+        <!-- Exercise 4: Vacation Costs -->
+        <div class="exercise-section">
+            <div class="exercise-header">
+                <h2>✈️ Exercise 4: Vacation Costs</h2>
+            </div>
+            <div class="exercise-content">
+                <div class="exercise-description">
+                    <strong>Description:</strong> Calculate total vacation cost including hotel, plane tickets, and car rental with discounts.
+                </div>
+                <div class="controls">
+                    <button onclick="runExercise4()">Run Exercise 4</button>
+                    <button onclick="runExercise4Prompt()">Run Exercise 4 with Prompts</button>
+                </div>
+                <div id="output4" class="output">Click "Run Exercise 4" to see the results...</div>
+            </div>
+        </div>
+
+        <!-- Exercise 5: Users HTML Manipulation -->
+        <div class="exercise-section">
+            <div class="exercise-header">
+                <h2>👥 Exercise 5: Users HTML Manipulation</h2>
+            </div>
+            <div class="exercise-content">
+                <div class="exercise-description">
+                    <strong>Description:</strong> DOM manipulation exercise - modify HTML elements, change text, add classes, and hide elements.
+                </div>
+                <div class="controls">
+                    <button onclick="runExercise5()">Run Exercise 5</button>
+                </div>
+                
+                <!-- Exercise 5 HTML Structure -->
+                <div id="container">Users:</div>
+                <ul class="list">
+                    <li>John</li>
+                    <li>Pete</li>
+                </ul>
+                <ul class="list">
+                    <li>David</li>
+                    <li>Sarah</li>
+                    <li>Dan</li>
+                </ul>
+                
+                <div class="code-section">
+                    <h3>🎯 Exercise 5 Tasks:</h3>
+                    <ul>
+                        <li>✅ Retrieve and log the container div</li>
+                        <li>✅ Change "Pete" to "Richard"</li>
+                        <li>✅ Delete the second li of the second ul</li>
+                        <li>✅ Change first li of each ul to "Your Name"</li>
+                        <li>✅ Add "student_list" class to both uls</li>
+                        <li>✅ Add "university" and "attendance" classes to first ul</li>
+                        <li>✅ Set light blue background and padding</li>
+                        <li>✅ Hide the li containing "Dan"</li>
+                        <li>✅ Add border to li containing "Richard"</li>
+                        <li>✅ Change body font size to 18px</li>
+                        <li>✅ Bonus: Alert with user names if background is light blue</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exercise 6: Navigation Bar DOM Manipulation -->
+        <div class="exercise-section">
+            <div class="exercise-header">
+                <h2>🧭 Exercise 6: Navigation Bar DOM Manipulation</h2>
+            </div>
+            <div class="exercise-content">
+                <div class="exercise-description">
+                    <strong>Description:</strong> DOM manipulation exercise - change element attributes, create new elements, and navigate the DOM tree.
+                </div>
+                <div class="controls">
+                    <button onclick="runExercise6()">Run Exercise 6</button>
+                    <button onclick="resetNavigationBar()">Reset Navigation Bar</button>
+                </div>
+                
+                <!-- Exercise 6 HTML Structure -->
+                <div id="navBar">
+                    <ul>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">My Friends</a></li>
+                        <li><a href="#">Messenger</a></li>
+                        <li><a href="#">My Pics</a></li>
+                    </ul>
+                </div>
+                
+                <div id="output6" class="output">Click "Run Exercise 6" to see the DOM manipulation in action...</div>
+                
+                <div class="code-section">
+                    <h3>🎯 Exercise 6 Tasks:</h3>
+                    <ul>
+                        <li>✅ Change div ID from 'navBar' to 'socialNetworkNavigation'</li>
+                        <li>✅ Create a new &lt;li&gt; element</li>
+                        <li>✅ Create a text node with "Logout"</li>
+                        <li>✅ Create an anchor element for the logout link</li>
+                        <li>✅ Append the new &lt;li&gt; to the &lt;ul&gt;</li>
+                        <li>✅ Use firstElementChild and lastElementChild properties</li>
+                        <li>✅ Display first and last link text</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exercise 7: My Book List -->
+        <div class="exercise-section">
+            <div class="exercise-header">
+                <h2>📚 Exercise 7: My Book List</h2>
+            </div>
+            <div class="exercise-content">
+                <div class="exercise-description">
+                    <strong>Description:</strong> Create and render a book list using DOM manipulation with images, titles, authors, and read status.
+                </div>
+                <div class="controls">
+                    <button onclick="renderBooks()">📖 Render Books</button>
+                    <button onclick="clearBooks()">🗑️ Clear Books</button>
+                    <button onclick="addSampleBooks()">➕ Add Sample Books</button>
+                    <button onclick="toggleBookStatus(0)">🔄 Toggle Book 1 Status</button>
+                    <button onclick="toggleBookStatus(1)">🔄 Toggle Book 2 Status</button>
+                    <button onclick="showBookInfo()">ℹ️ Show Book Array Info</button>
+                </div>
+                
+                <!-- Exercise 7 HTML Structure -->
+                <section class="listBooks" id="bookList">
+                    <div class="placeholder">
+                        👆 Click "Render Books" to display your book collection!
+                    </div>
+                </section>
+                
+                <div class="code-section">
+                    <h3>🎯 Exercise 7 Features:</h3>
+                    <ul>
+                        <li>✅ Array of book objects with title, author, image, and alreadyRead properties</li>
+                        <li>✅ DOM rendering of books in styled cards</li>
+                        <li>✅ 100px width images for each book</li>
+                        <li>✅ Red color for already read books</li>
+                        <li>✅ Interactive controls for demonstration</li>
+                        <li>✅ Responsive grid layout</li>
+                        <li>✅ Status badges and hover effects</li>
+                        <li>✅ Image error handling with fallback</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="exercise-section">
+            <div class="exercise-content">
+                <div class="code-section">
+                    <h3>🚀 How to Use This Consolidated Version:</h3>
+                    <ul>
+                        <li><strong>Exercises 1-4:</strong> Click the run buttons to see console output and results in the output areas</li>
+                        <li><strong>Exercise 5:</strong> Click "Run Exercise 5" to see DOM manipulation effects on the user lists above</li>
+                        <li><strong>Exercise 6:</strong> Click "Run Exercise 6" to see navigation bar manipulation and new logout link</li>
+                        <li><strong>Exercise 7:</strong> Click "Render Books" to see the book collection with images and styling</li>
+                        <li><strong>Console:</strong> Open browser developer tools (F12) to see detailed console output for all exercises</li>
+                    </ul>
+                    
+                    <h3>📋 All Original Features Preserved:</h3>
+                    <ul>
+                        <li>✅ All original JavaScript functions and logic</li>
+                        <li>✅ All DOM manipulation exercises with visual feedback</li>
+                        <li>✅ All styling and interactive elements</li>
+                        <li>✅ All bonus features and enhancements</li>
+                        <li>✅ Responsive design for mobile devices</li>
+                        <li>✅ Error handling and fallbacks</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="all-exercises.js"></script>
+</body>
+</html>
