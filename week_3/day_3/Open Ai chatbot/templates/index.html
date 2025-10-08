@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Chatbot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/matrix.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Source+Code+Pro:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Matrix Rain Background -->
+    <canvas id="matrix-rain"></canvas>
+    
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <h1 class="matrix-title">
+                    <span class="glitch" data-text="MATRIX">MATRIX</span>
+                    <span class="subtitle">CHATBOT</span>
+                </h1>
+                <div class="status-indicator">
+                    <div class="pulse-dot"></div>
+                    <span class="status-text">SYSTEM ONLINE</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Chat Container -->
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="chat-title">
+                    <span class="terminal-prompt">root@matrix:~$</span>
+                    <span class="typing-cursor">█</span>
+                </div>
+                <div class="chat-controls">
+                    <button id="clear-memory" class="control-btn" title="Clear Memory">
+                        <span class="icon">🧠</span>
+                        <span class="tooltip">Clear Memory</span>
+                    </button>
+                    <button id="memory-info" class="control-btn" title="Memory Info">
+                        <span class="icon">📊</span>
+                        <span class="tooltip">Memory Info</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Chat Messages -->
+            <div class="chat-messages" id="chat-messages">
+                <div class="message bot-message">
+                    <div class="message-header">
+                        <span class="sender">SYSTEM</span>
+                        <span class="timestamp" id="system-time"></span>
+                    </div>
+                    <div class="message-content">
+                        <span class="matrix-text">Welcome to the Matrix. I am your AI assistant with memory capabilities.</span>
+                        <span class="typing-cursor">█</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <span class="input-prompt">></span>
+                    <input type="text" id="message-input" placeholder="Enter your message..." autocomplete="off">
+                    <button id="send-btn" class="send-btn">
+                        <span class="send-icon">▶</span>
+                    </button>
+                </div>
+                <div class="input-footer">
+                    <span class="help-text">Press Enter to send • Type 'memory' to view memory • Type 'clear' to clear memory</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Memory Panel (Hidden by default) -->
+        <div class="memory-panel" id="memory-panel">
+            <div class="memory-header">
+                <h3>Memory Status</h3>
+                <button id="close-memory" class="close-btn">×</button>
+            </div>
+            <div class="memory-content" id="memory-content">
+                <div class="memory-loading">
+                    <div class="loading-spinner"></div>
+                    <span>Loading memory data...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loading-overlay">
+            <div class="loading-content">
+                <div class="matrix-loader">
+                    <div class="loader-text">INITIALIZING MATRIX...</div>
+                    <div class="loader-progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/matrix.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+</body>
+</html>
