@@ -1,0 +1,7 @@
+# Environment variables for the chatbot
+# Copy this file to .env and fill in your actual values
+
+# GitHub Personal Access Token (required)
+# Get your token from: https://github.com/settings/tokens
+# Make sure to give it the necessary permissions for model inference
+GITHUB_TOKEN=your_github_token_here

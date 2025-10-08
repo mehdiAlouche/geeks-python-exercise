@@ -114,7 +114,7 @@ MAX_RETRIES = 3       # Number of retry attempts
 ## API Support
 
 ### GitHub Inference API
-- Uses gpt-4o model via GitHub's inference service
+- Uses GPT-5-nano model via GitHub's inference service
 - Requires GitHub Personal Access Token
 - High performance and reliability
 - Direct access to cutting-edge AI models
