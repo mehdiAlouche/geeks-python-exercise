@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drumset</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Drumset</h1>
+        <div class="drum-pads">
+            <div class="drum-pad" data-key="65" data-sound="boom">
+                <div class="key">A</div>
+                <div class="sound">Boom</div>
+            </div>
+            <div class="drum-pad" data-key="83" data-sound="clap">
+                <div class="key">S</div>
+                <div class="sound">Clap</div>
+            </div>
+            <div class="drum-pad" data-key="68" data-sound="hihat">
+                <div class="key">D</div>
+                <div class="sound">HiHat</div>
+            </div>
+            <div class="drum-pad" data-key="70" data-sound="kick">
+                <div class="key">F</div>
+                <div class="sound">Kick</div>
+            </div>
+            <div class="drum-pad" data-key="71" data-sound="openhat">
+                <div class="key">G</div>
+                <div class="sound">OpenHat</div>
+            </div>
+            <div class="drum-pad" data-key="72" data-sound="ride">
+                <div class="key">H</div>
+                <div class="sound">Ride</div>
+            </div>
+            <div class="drum-pad" data-key="74" data-sound="snare">
+                <div class="key">J</div>
+                <div class="sound">Snare</div>
+            </div>
+            <div class="drum-pad" data-key="75" data-sound="tink">
+                <div class="key">K</div>
+                <div class="sound">Tink</div>
+            </div>
+            <div class="drum-pad" data-key="76" data-sound="tom">
+                <div class="key">L</div>
+                <div class="sound">Tom</div>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <p>Press the keys or click the pads to play sounds!</p>
+        </div>
+    </div>
+
+    <!-- Audio elements -->
+    <audio data-key="65" src="sounds/boom.wav"></audio>
+    <audio data-key="83" src="sounds/clap.wav"></audio>
+    <audio data-key="68" src="sounds/hihat.wav"></audio>
+    <audio data-key="70" src="sounds/kick.wav"></audio>
+    <audio data-key="71" src="sounds/openhat.wav"></audio>
+    <audio data-key="72" src="sounds/ride.wav"></audio>
+    <audio data-key="74" src="sounds/snare.wav"></audio>
+    <audio data-key="75" src="sounds/tink.wav"></audio>
+    <audio data-key="76" src="sounds/tom.wav"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

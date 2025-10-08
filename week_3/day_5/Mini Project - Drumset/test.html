@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drumset Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .test-button:hover {
+            background: #0056b3;
+        }
+        .status {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <h1>Drumset Functionality Test</h1>
+    
+    <div class="test-section">
+        <h2>Keyboard Event Test</h2>
+        <p>Press keys A, S, D, F, G, H, J, K, L to test keyboard functionality:</p>
+        <div id="keyboard-status" class="status">No keys pressed yet</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Audio Context Test</h2>
+        <button class="test-button" onclick="testAudioContext()">Test Audio Context</button>
+        <div id="audio-status" class="status">Click button to test</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Sound Generation Test</h2>
+        <button class="test-button" onclick="testSoundGeneration()">Test Sound Generation</button>
+        <div id="sound-status" class="status">Click button to test</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Open Main Drumset</h2>
+        <button class="test-button" onclick="window.open('index.html', '_blank')">Open Drumset</button>
+    </div>
+
+    <script>
+        // Test keyboard events
+        document.addEventListener('keydown', function(event) {
+            const validKeys = [65, 83, 68, 70, 71, 72, 74, 75, 76];
+            const keyNames = {
+                65: 'A', 83: 'S', 68: 'D', 70: 'F', 71: 'G',
+                72: 'H', 74: 'J', 75: 'K', 76: 'L'
+            };
+            
+            if (validKeys.includes(event.keyCode)) {
+                document.getElementById('keyboard-status').innerHTML = 
+                    `<div class="success">✓ Key ${keyNames[event.keyCode]} (${event.keyCode}) pressed successfully!</div>`;
+            } else {
+                document.getElementById('keyboard-status').innerHTML = 
+                    `<div class="error">✗ Invalid key pressed: ${event.keyCode}</div>`;
+            }
+        });
+
+        // Test audio context
+        function testAudioContext() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                document.getElementById('audio-status').innerHTML = 
+                    `<div class="success">✓ Audio Context created successfully!</div>`;
+            } catch (error) {
+                document.getElementById('audio-status').innerHTML = 
+                    `<div class="error">✗ Audio Context failed: ${error.message}</div>`;
+            }
+        }
+
+        // Test sound generation
+        function testSoundGeneration() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+                
+                document.getElementById('sound-status').innerHTML = 
+                    `<div class="success">✓ Sound generated successfully!</div>`;
+            } catch (error) {
+                document.getElementById('sound-status').innerHTML = 
+                    `<div class="error">✗ Sound generation failed: ${error.message}</div>`;
+            }
+        }
+    </script>
+</body>
+</html>
