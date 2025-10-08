@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Animation Exercises - Timer & Moving Box</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .main-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+        }
+        
+        .exercise-container {
+            margin-bottom: 50px;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .timer-exercise {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+        }
+        
+        .timer-exercise h2 {
+            color: white;
+            margin-top: 0;
+            font-size: 1.8em;
+        }
+        
+        .box-exercise {
+            background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+            color: white;
+        }
+        
+        .box-exercise h2 {
+            color: white;
+            margin-top: 0;
+            font-size: 1.8em;
+        }
+        
+        .exercise-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 10px;
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        .exercise-section h3 {
+            color: white;
+            margin-top: 0;
+            font-size: 1.3em;
+        }
+        
+        button {
+            background-color: #00b894;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #00a085;
+        }
+        
+        #clear {
+            background-color: #e17055;
+        }
+        
+        #clear:hover {
+            background-color: #d63031;
+        }
+        
+        .reset-btn {
+            background-color: #e17055;
+            font-size: 14px;
+            padding: 10px 20px;
+        }
+        
+        .reset-btn:hover {
+            background-color: #d63031;
+        }
+        
+        p {
+            background: yellow;
+            color: red;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .info {
+            background-color: rgba(255,255,255,0.2);
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid rgba(255,255,255,0.5);
+        }
+        
+        .counter {
+            font-weight: bold;
+            color: white;
+            margin: 10px 0;
+        }
+        
+        /* Moving Box Styles */
+        #box-container {
+            width: 400px;
+            height: 400px;
+            position: relative;
+            background: yellow;
+            border: 3px solid #333;
+            border-radius: 10px;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+        
+        #animate {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            background-color: red;
+            border-radius: 5px;
+            top: 175px; /* Center vertically: (400-50)/2 = 175 */
+            left: 0;
+            transition: none; /* Disable CSS transitions for manual animation */
+        }
+        
+        .status {
+            text-align: center;
+            margin: 15px 0;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        #timer-container {
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <h1>🎯 Animation Exercises</h1>
+        
+        <!-- Timer Exercise -->
+        <div class="exercise-container timer-exercise">
+            <h2>⏰ Exercise 1: Timer</h2>
+            
+            <div class="exercise-section">
+                <h3>Part I: setTimeout with Alert</h3>
+                <div class="info">
+                    💡 This will show an alert "Hello World" after 2 seconds
+                </div>
+                <button onclick="partOne()">Start Part I</button>
+            </div>
+            
+            <div class="exercise-section">
+                <h3>Part II: setTimeout with DOM</h3>
+                <div class="info">
+                    💡 This will add a paragraph to the container after 2 seconds
+                </div>
+                <button onclick="partTwo()">Start Part II</button>
+            </div>
+            
+            <div class="exercise-section">
+                <h3>Part III: setInterval with Clear</h3>
+                <div class="info">
+                    💡 This will add paragraphs every 2 seconds. Stops at 5 paragraphs or when you click Clear.
+                </div>
+                <button onclick="partThree()">Start Part III</button>
+                <button id="clear">Clear Interval</button>
+                <div class="counter">Paragraphs added: <span id="counter">0</span></div>
+            </div>
+            
+            <div id="timer-container"></div>
+        </div>
+        
+        <!-- Moving Box Exercise -->
+        <div class="exercise-container box-exercise">
+            <h2>📦 Exercise 2: Move the Box</h2>
+            
+            <div class="info">
+                💡 Click the button to animate the red box moving from left to right across the yellow container!
+            </div>
+            
+            <div class="controls">
+                <button onclick="myMove()" id="moveBtn">Click Me</button>
+                <button onclick="resetBox()" class="reset-btn">Reset Box</button>
+            </div>
+            
+            <div class="status" id="status">Ready to move!</div>
+            
+            <div id="box-container">
+                <div id="animate"></div>
+            </div>
+            
+            <div class="info">
+                <strong>How it works:</strong><br>
+                • The box moves 1px to the right every millisecond<br>
+                • Uses setInterval for smooth animation<br>
+                • Stops automatically when it reaches the right edge<br>
+                • Container is 400px wide, box is 50px wide<br>
+                • Maximum movement: 350px (400 - 50 = 350)
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Timer Exercise Variables
+        let intervalId;
+        let paragraphCount = 0;
+        
+        // Moving Box Exercise Variables
+        let animationId;
+        let boxPosition = 0;
+        const containerWidth = 400;
+        const boxWidth = 50;
+        const maxPosition = containerWidth - boxWidth; // 350px
+        
+        // Timer Exercise Functions
+        // Part I: setTimeout with alert
+        function partOne() {
+            console.log('Part I started - setTimeout with alert');
+            setTimeout(function() {
+                alert("Hello World");
+                console.log('Alert shown after 2 seconds');
+            }, 2000);
+        }
+        
+        // Part II: setTimeout with DOM manipulation
+        function partTwo() {
+            console.log('Part II started - setTimeout with DOM');
+            setTimeout(function() {
+                const container = document.getElementById('timer-container');
+                const paragraph = document.createElement('p');
+                paragraph.textContent = 'Hello World';
+                container.appendChild(paragraph);
+                console.log('Paragraph added after 2 seconds');
+            }, 2000);
+        }
+        
+        // Part III: setInterval with clearInterval
+        function partThree() {
+            console.log('Part III started - setInterval');
+            
+            // Clear any existing interval
+            if (intervalId) {
+                clearInterval(intervalId);
+            }
+            
+            // Reset counter
+            paragraphCount = 0;
+            document.getElementById('counter').textContent = paragraphCount;
+            
+            // Clear container
+            document.getElementById('timer-container').innerHTML = '';
+            
+            // Start interval
+            intervalId = setInterval(function() {
+                const container = document.getElementById('timer-container');
+                const paragraph = document.createElement('p');
+                paragraph.textContent = 'Hello World';
+                container.appendChild(paragraph);
+                
+                paragraphCount++;
+                document.getElementById('counter').textContent = paragraphCount;
+                
+                console.log(`Paragraph ${paragraphCount} added`);
+                
+                // Clear interval when 5 paragraphs are reached
+                if (paragraphCount >= 5) {
+                    clearInterval(intervalId);
+                    console.log('Interval cleared - reached 5 paragraphs');
+                    
+                    // Show completion message
+                    const completionMsg = document.createElement('div');
+                    completionMsg.innerHTML = '<strong>✅ Completed! 5 paragraphs added.</strong>';
+                    completionMsg.style.cssText = 'background: #d4edda; color: #155724; padding: 10px; margin: 10px 0; border-radius: 5px;';
+                    container.appendChild(completionMsg);
+                }
+            }, 2000);
+        }
+        
+        // Clear interval button functionality
+        document.getElementById('clear').addEventListener('click', function() {
+            if (intervalId) {
+                clearInterval(intervalId);
+                console.log('Interval cleared by button click');
+                
+                // Show stopped message
+                const container = document.getElementById('timer-container');
+                const stoppedMsg = document.createElement('div');
+                stoppedMsg.innerHTML = '<strong>⏹️ Stopped by user!</strong>';
+                stoppedMsg.style.cssText = 'background: #f8d7da; color: #721c24; padding: 10px; margin: 10px 0; border-radius: 5px;';
+                container.appendChild(stoppedMsg);
+            }
+        });
+        
+        // Moving Box Exercise Functions
+        function myMove() {
+            console.log('Animation started');
+            
+            // Disable the button during animation
+            const moveBtn = document.getElementById('moveBtn');
+            const status = document.getElementById('status');
+            
+            moveBtn.disabled = true;
+            status.textContent = 'Moving...';
+            status.style.color = '#00b894';
+            
+            // Clear any existing animation
+            if (animationId) {
+                clearInterval(animationId);
+            }
+            
+            // Start the animation
+            animationId = setInterval(function() {
+                const animate = document.getElementById('animate');
+                
+                // Move the box 1px to the right
+                boxPosition += 1;
+                animate.style.left = boxPosition + 'px';
+                
+                console.log(`Box position: ${boxPosition}px`);
+                
+                // Check if box has reached the right edge
+                if (boxPosition >= maxPosition) {
+                    clearInterval(animationId);
+                    console.log('Animation completed - box reached the end');
+                    
+                    // Update UI
+                    moveBtn.disabled = false;
+                    status.textContent = '✅ Animation Complete!';
+                    status.style.color = '#00b894';
+                    
+                    // Show completion message
+                    setTimeout(() => {
+                        status.textContent = 'Click "Reset Box" to try again!';
+                        status.style.color = 'white';
+                    }, 2000);
+                }
+            }, 1); // 1 millisecond interval
+        }
+        
+        function resetBox() {
+            console.log('Resetting box position');
+            
+            // Clear any running animation
+            if (animationId) {
+                clearInterval(animationId);
+                animationId = null;
+            }
+            
+            // Reset position
+            boxPosition = 0;
+            const animate = document.getElementById('animate');
+            animate.style.left = '0px';
+            
+            // Reset UI
+            const moveBtn = document.getElementById('moveBtn');
+            const status = document.getElementById('status');
+            
+            moveBtn.disabled = false;
+            status.textContent = 'Ready to move!';
+            status.style.color = 'white';
+            
+            console.log('Box reset to starting position');
+        }
+        
+        // Initialize
+        console.log('Combined Animation Exercises initialized');
+        console.log('Timer Exercise functions: partOne(), partTwo(), partThree()');
+        console.log('Moving Box Exercise functions: myMove(), resetBox()');
+        console.log(`Container width: ${containerWidth}px, Box width: ${boxWidth}px`);
+        console.log(`Maximum position: ${maxPosition}px`);
+        
+        // Add some visual feedback for the box
+        document.getElementById('animate').addEventListener('mouseover', function() {
+            this.style.backgroundColor = '#ff6b6b';
+        });
+        
+        document.getElementById('animate').addEventListener('mouseout', function() {
+            this.style.backgroundColor = 'red';
+        });
+    </script>
+</body>
+</html>
