@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Exercises Combined - XP Gold</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 15px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-tab:hover {
+            background-color: #e9ecef;
+        }
+
+        .nav-tab.active {
+            background-color: white;
+            border-bottom-color: #667eea;
+            color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 30px;
+            min-height: 600px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .exercise-section {
+            margin-bottom: 30px;
+            padding: 25px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+        }
+
+        .exercise-section h2 {
+            color: #2d3436;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #17a2b8;
+        }
+
+        .result {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #28a745;
+            font-weight: bold;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #dc3545;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #28a745;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            max-width: 300px;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button, input[type="button"] {
+            background-color: #667eea;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover, input[type="button"]:hover {
+            background-color: #5a67d8;
+        }
+
+        button:disabled, input[type="button"]:disabled {
+            background-color: #b2bec3;
+            cursor: not-allowed;
+        }
+
+        .clear-btn {
+            background-color: #e17055;
+        }
+
+        .clear-btn:hover {
+            background-color: #d63031;
+        }
+
+        .reset-btn {
+            background-color: #6c757d;
+        }
+
+        .reset-btn:hover {
+            background-color: #5a6268;
+        }
+
+        /* Shopping List Specific Styles */
+        .shopping-form {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+        }
+
+        .shopping-list {
+            margin-top: 30px;
+        }
+
+        .list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #e8f5e8;
+            border-radius: 8px;
+        }
+
+        .list-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2d3436;
+        }
+
+        .item-count {
+            background-color: #00b894;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+        }
+
+        .shopping-items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .shopping-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .item-text {
+            flex-grow: 1;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .remove-btn {
+            background-color: #e17055;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+
+        .remove-btn:hover {
+            background-color: #d63031;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .color-preview {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 8px;
+            vertical-align: middle;
+            border: 2px solid #333;
+        }
+
+        .code-example {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            .nav-tab {
+                border-bottom: 1px solid #dee2e6;
+                border-right: none;
+            }
+            
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+            
+            .tab-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 XP Gold Exercises</h1>
+            <p>All JavaScript DOM Manipulation Exercises in One Place</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('exercise1')">🎵 Exercise 1: Music Selection</button>
+            <button class="nav-tab" onclick="showTab('exercise2')">🎨 Exercise 2: Delete Colors</button>
+            <button class="nav-tab" onclick="showTab('exercise3')">🛒 Exercise 3: Shopping List</button>
+        </div>
+
+        <!-- Exercise 1: Music Selection -->
+        <div id="exercise1" class="tab-content active">
+            <div class="exercise-section">
+                <h2>🎵 Exercise 1: Select a kind of Music</h2>
+                
+                <div class="info">
+                    💡 This exercise demonstrates DOM manipulation with select elements. Try changing the selections to see the values update in real-time.
+                </div>
+                
+                <h3>Original Select Element</h3>
+                <div class="info">
+                    💡 This is the original select element with Rock and Blues options
+                </div>
+                <select id="genres">
+                    <option value="rock">Rock</option>
+                    <option value="blues" selected>Blues</option>
+                </select>
+                <div class="result" id="originalResult">Selected value: <span id="originalValue">blues</span></div>
+                
+                <h3>Enhanced Select Element</h3>
+                <div class="info">
+                    💡 Classic option has been added and set as default selection
+                </div>
+                <select id="enhancedGenres">
+                    <option value="rock">Rock</option>
+                    <option value="blues">Blues</option>
+                    <option value="classic" selected>Classic</option>
+                </select>
+                <div class="result" id="enhancedResult">Selected value: <span id="enhancedValue">classic</span></div>
+                
+                <h3>Dynamic Value Display</h3>
+                <div class="info">
+                    💡 Watch the selected value update in real-time as you change the selection
+                </div>
+                <select id="dynamicGenres">
+                    <option value="rock">Rock</option>
+                    <option value="blues">Blues</option>
+                    <option value="classic" selected>Classic</option>
+                    <option value="jazz">Jazz</option>
+                    <option value="pop">Pop</option>
+                    <option value="country">Country</option>
+                </select>
+                <div class="result" id="dynamicResult">Selected value: <span id="dynamicValue">classic</span></div>
+                
+                <div class="code-example">
+                    <strong>JavaScript Implementation:</strong><br>
+                    // Display selected value<br>
+                    const selectedValue = document.getElementById('genres').value;<br>
+                    console.log('Selected music genre:', selectedValue);<br><br>
+                    
+                    // Add Classic option and set as default<br>
+                    const classicOption = document.createElement('option');<br>
+                    classicOption.value = 'classic';<br>
+                    classicOption.textContent = 'Classic';<br>
+                    classicOption.selected = true;<br>
+                    document.getElementById('genres').appendChild(classicOption);
+                </div>
+            </div>
+        </div>
+
+        <!-- Exercise 2: Delete Colors -->
+        <div id="exercise2" class="tab-content">
+            <div class="exercise-section">
+                <h2>🎨 Exercise 2: Delete Colors</h2>
+                
+                <div class="info">
+                    💡 This exercise demonstrates removing options from select elements. Select a color and click "Select and Remove" to delete it from the list.
+                </div>
+                
+                <h3>Color Selection and Removal</h3>
+                <form>
+                    <select id="colorSelect">
+                        <option value="red">Red</option>
+                        <option value="green">Green</option>
+                        <option value="white">White</option>
+                        <option value="black">Black</option>
+                    </select>
+                    <input type="button" value="Select and Remove" id="removeBtn">
+                    <input type="button" value="Reset Colors" class="reset-btn" id="resetBtn">
+                </form>
+                <div id="message"></div>
+                
+                <h3>Enhanced Color Manager</h3>
+                <div class="info">
+                    💡 Try the enhanced version with more colors and better feedback
+                </div>
+                <form>
+                    <select id="enhancedColorSelect">
+                        <option value="red">🔴 Red</option>
+                        <option value="green">🟢 Green</option>
+                        <option value="blue">🔵 Blue</option>
+                        <option value="yellow">🟡 Yellow</option>
+                        <option value="purple">🟣 Purple</option>
+                        <option value="orange">🟠 Orange</option>
+                        <option value="pink">🩷 Pink</option>
+                        <option value="brown">🤎 Brown</option>
+                    </select>
+                    <input type="button" value="Remove Selected" id="enhancedRemoveBtn">
+                    <input type="button" value="Reset All" class="reset-btn" id="enhancedResetBtn">
+                </form>
+                <div id="enhancedMessage"></div>
+                
+                <div class="code-example">
+                    <strong>JavaScript Implementation:</strong><br>
+                    function removecolor() {<br>
+                    &nbsp;&nbsp;const colorSelect = document.getElementById('colorSelect');<br>
+                    &nbsp;&nbsp;const selectedIndex = colorSelect.selectedIndex;<br>
+                    &nbsp;&nbsp;if (selectedIndex !== -1) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;colorSelect.remove(selectedIndex);<br>
+                    &nbsp;&nbsp;}<br>
+                    }<br><br>
+                    
+                    // Add click event listener<br>
+                    document.getElementById('removeBtn').addEventListener('click', removecolor);
+                </div>
+            </div>
+        </div>
+
+        <!-- Exercise 3: Shopping List -->
+        <div id="exercise3" class="tab-content">
+            <div class="exercise-section">
+                <h2>🛒 Exercise 3: Create a Shopping List</h2>
+                
+                <div class="info">
+                    💡 This exercise demonstrates array manipulation and dynamic DOM updates. Type what you need to buy and add it to your shopping list!
+                </div>
+                
+                <div class="shopping-form">
+                    <div class="form-group">
+                        <label for="itemInput">Add new item:</label>
+                        <input type="text" id="itemInput" placeholder="Enter item to add to shopping list...">
+                    </div>
+                    <button id="addItemBtn">Add Item</button>
+                    <button id="clearAllBtn" class="clear-btn">Clear All</button>
+                </div>
+                
+                <div class="shopping-list">
+                    <div class="list-header">
+                        <div class="list-title">Your Shopping List</div>
+                        <div class="item-count" id="itemCount">0 items</div>
+                    </div>
+                    <ul class="shopping-items" id="shoppingItems">
+                        <li class="empty-state">
+                            <div class="empty-state-icon">🛍️</div>
+                            <div>Your shopping list is empty</div>
+                            <div>Add some items to get started!</div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="code-example">
+                    <strong>JavaScript Implementation:</strong><br>
+                    // Create an empty array<br>
+                    let shoppingList = [];<br><br>
+                    
+                    // Function to add item to the shopping list<br>
+                    function addItem() {<br>
+                    &nbsp;&nbsp;const itemInput = document.getElementById('itemInput');<br>
+                    &nbsp;&nbsp;const itemText = itemInput.value.trim();<br>
+                    &nbsp;&nbsp;if (itemText !== '') {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;shoppingList.push(itemText);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;itemInput.value = '';<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;updateShoppingListDisplay();<br>
+                    &nbsp;&nbsp;}<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab Navigation System
+        function showTab(tabId) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabId).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        // Exercise 1: Music Selection
+        const Exercise1 = {
+            // Part 1: Display the value of the selected option
+            displaySelectedValue() {
+                const originalSelect = document.getElementById('genres');
+                const originalValue = originalSelect.value;
+                document.getElementById('originalValue').textContent = originalValue;
+                console.log('Original selected value:', originalValue);
+            },
+            
+            // Part 2: Add Classic option and set as default
+            addClassicOption() {
+                const enhancedSelect = document.getElementById('enhancedGenres');
+                
+                // Create the Classic option
+                const classicOption = document.createElement('option');
+                classicOption.value = 'classic';
+                classicOption.textContent = 'Classic';
+                classicOption.selected = true; // Set as default
+                
+                // Add to the select element
+                enhancedSelect.appendChild(classicOption);
+                
+                // Update the display
+                document.getElementById('enhancedValue').textContent = classicOption.value;
+                console.log('Classic option added and set as default');
+            },
+            
+            // Event listeners for real-time value display
+            setupEventListeners() {
+                // Original select
+                document.getElementById('genres').addEventListener('change', function() {
+                    Exercise1.displaySelectedValue();
+                });
+                
+                // Enhanced select
+                document.getElementById('enhancedGenres').addEventListener('change', function() {
+                    const value = this.value;
+                    document.getElementById('enhancedValue').textContent = value;
+                    console.log('Enhanced selected value:', value);
+                });
+                
+                // Dynamic select
+                document.getElementById('dynamicGenres').addEventListener('change', function() {
+                    const value = this.value;
+                    document.getElementById('dynamicValue').textContent = value;
+                    console.log('Dynamic selected value:', value);
+                });
+            },
+            
+            // Initialize the exercise
+            initialize() {
+                console.log('Exercise 1: Music Selection initialized');
+                
+                // Display initial values
+                this.displaySelectedValue();
+                
+                // Add Classic option (this is already in HTML, but showing the JS way)
+                this.addClassicOption();
+                
+                // Setup event listeners
+                this.setupEventListeners();
+                
+                console.log('Exercise 1 functionality loaded successfully');
+            }
+        };
+
+        // Exercise 2: Delete Colors
+        const Exercise2 = {
+            // Original removecolor function as requested
+            removecolor() {
+                const colorSelect = document.getElementById('colorSelect');
+                const selectedIndex = colorSelect.selectedIndex;
+                const messageDiv = document.getElementById('message');
+                
+                if (selectedIndex !== -1) {
+                    const selectedOption = colorSelect.options[selectedIndex];
+                    const selectedColor = selectedOption.textContent;
+                    
+                    // Remove the selected option
+                    colorSelect.remove(selectedIndex);
+                    
+                    // Show success message
+                    messageDiv.innerHTML = `<div class="result">✅ Successfully removed "${selectedColor}" from the list!</div>`;
+                    
+                    console.log(`Removed color: ${selectedColor}`);
+                    
+                    // Check if no colors left
+                    if (colorSelect.options.length === 0) {
+                        messageDiv.innerHTML = '<div class="error">⚠️ No colors left! Click "Reset Colors" to restore the list.</div>';
+                        document.getElementById('removeBtn').disabled = true;
+                    }
+                } else {
+                    messageDiv.innerHTML = '<div class="error">❌ No color selected to remove!</div>';
+                }
+            },
+            
+            // Enhanced removecolor function with better features
+            enhancedRemovecolor() {
+                const colorSelect = document.getElementById('enhancedColorSelect');
+                const selectedIndex = colorSelect.selectedIndex;
+                const messageDiv = document.getElementById('enhancedMessage');
+                
+                if (selectedIndex !== -1) {
+                    const selectedOption = colorSelect.options[selectedIndex];
+                    const selectedColor = selectedOption.textContent;
+                    
+                    // Remove the selected option
+                    colorSelect.remove(selectedIndex);
+                    
+                    // Show success message
+                    messageDiv.innerHTML = `<div class="result">✅ Successfully removed "${selectedColor}" from the list!</div>`;
+                    
+                    console.log(`Enhanced: Removed color: ${selectedColor}`);
+                    
+                    // Check if no colors left
+                    if (colorSelect.options.length === 0) {
+                        messageDiv.innerHTML = '<div class="error">⚠️ No colors left! Click "Reset All" to restore the list.</div>';
+                        document.getElementById('enhancedRemoveBtn').disabled = true;
+                    } else {
+                        // Auto-select the first option after removal
+                        colorSelect.selectedIndex = 0;
+                    }
+                } else {
+                    messageDiv.innerHTML = '<div class="error">❌ No color selected to remove!</div>';
+                }
+            },
+            
+            // Reset function for original colors
+            resetColors() {
+                const colorSelect = document.getElementById('colorSelect');
+                const messageDiv = document.getElementById('message');
+                
+                // Clear existing options
+                colorSelect.innerHTML = '';
+                
+                // Add back original colors
+                const originalColors = [
+                    { value: 'red', text: 'Red' },
+                    { value: 'green', text: 'Green' },
+                    { value: 'white', text: 'White' },
+                    { value: 'black', text: 'Black' }
+                ];
+                
+                originalColors.forEach(color => {
+                    const option = document.createElement('option');
+                    option.value = color.value;
+                    option.textContent = color.text;
+                    colorSelect.appendChild(option);
+                });
+                
+                // Reset UI
+                messageDiv.innerHTML = '<div class="result">🔄 Colors list has been reset!</div>';
+                document.getElementById('removeBtn').disabled = false;
+                
+                console.log('Original colors reset');
+            },
+            
+            // Reset function for enhanced colors
+            resetEnhancedColors() {
+                const colorSelect = document.getElementById('enhancedColorSelect');
+                const messageDiv = document.getElementById('enhancedMessage');
+                
+                // Clear existing options
+                colorSelect.innerHTML = '';
+                
+                // Add back enhanced colors
+                const enhancedColors = [
+                    { value: 'red', text: '🔴 Red' },
+                    { value: 'green', text: '🟢 Green' },
+                    { value: 'blue', text: '🔵 Blue' },
+                    { value: 'yellow', text: '🟡 Yellow' },
+                    { value: 'purple', text: '🟣 Purple' },
+                    { value: 'orange', text: '🟠 Orange' },
+                    { value: 'pink', text: '🩷 Pink' },
+                    { value: 'brown', text: '🤎 Brown' }
+                ];
+                
+                enhancedColors.forEach(color => {
+                    const option = document.createElement('option');
+                    option.value = color.value;
+                    option.textContent = color.text;
+                    colorSelect.appendChild(option);
+                });
+                
+                // Reset UI
+                messageDiv.innerHTML = '<div class="result">🔄 Enhanced colors list has been reset!</div>';
+                document.getElementById('enhancedRemoveBtn').disabled = false;
+                
+                console.log('Enhanced colors reset');
+            },
+            
+            // Initialize the exercise
+            initialize() {
+                console.log('Exercise 2: Delete Colors initialized');
+                
+                // Add click event listeners as requested
+                document.getElementById('removeBtn').addEventListener('click', () => this.removecolor());
+                document.getElementById('enhancedRemoveBtn').addEventListener('click', () => this.enhancedRemovecolor());
+                
+                // Add reset functionality
+                document.getElementById('resetBtn').addEventListener('click', () => this.resetColors());
+                document.getElementById('enhancedResetBtn').addEventListener('click', () => this.resetEnhancedColors());
+                
+                console.log('Exercise 2 event listeners attached successfully');
+            }
+        };
+
+        // Exercise 3: Shopping List
+        const Exercise3 = {
+            // Create an empty array as requested
+            shoppingList: [],
+            
+            // Function to add item to the shopping list (as requested)
+            addItem() {
+                const itemInput = document.getElementById('itemInput');
+                const itemText = itemInput.value.trim();
+                
+                if (itemText === '') {
+                    this.showMessage('Please enter an item to add!', 'error');
+                    return;
+                }
+                
+                // Add item to the array
+                this.shoppingList.push(itemText);
+                
+                // Clear the input field
+                itemInput.value = '';
+                
+                // Update the display
+                this.updateShoppingListDisplay();
+                
+                // Show success message
+                this.showMessage(`✅ Added "${itemText}" to your shopping list!`, 'success');
+                
+                console.log('Added item:', itemText);
+                console.log('Current shopping list:', this.shoppingList);
+            },
+            
+            // Function to clear all items (as requested)
+            clearAll() {
+                if (this.shoppingList.length === 0) {
+                    this.showMessage('Shopping list is already empty!', 'error');
+                    return;
+                }
+                
+                const itemCount = this.shoppingList.length;
+                this.shoppingList = []; // Clear the array
+                
+                // Update the display
+                this.updateShoppingListDisplay();
+                
+                // Show success message
+                this.showMessage(`🗑️ Cleared all ${itemCount} items from your shopping list!`, 'success');
+                
+                console.log('Cleared all items from shopping list');
+            },
+            
+            // Function to remove individual item
+            removeItem(index) {
+                const removedItem = this.shoppingList[index];
+                this.shoppingList.splice(index, 1);
+                
+                // Update the display
+                this.updateShoppingListDisplay();
+                
+                // Show success message
+                this.showMessage(`✅ Removed "${removedItem}" from your shopping list!`, 'success');
+                
+                console.log('Removed item:', removedItem);
+                console.log('Updated shopping list:', this.shoppingList);
+            },
+            
+            // Function to update the shopping list display
+            updateShoppingListDisplay() {
+                const shoppingItems = document.getElementById('shoppingItems');
+                const itemCount = document.getElementById('itemCount');
+                
+                // Update item count
+                itemCount.textContent = `${this.shoppingList.length} item${this.shoppingList.length !== 1 ? 's' : ''}`;
+                
+                if (this.shoppingList.length === 0) {
+                    // Show empty state
+                    shoppingItems.innerHTML = `
+                        <li class="empty-state">
+                            <div class="empty-state-icon">🛍️</div>
+                            <div>Your shopping list is empty</div>
+                            <div>Add some items to get started!</div>
+                        </li>
+                    `;
+                } else {
+                    // Show items
+                    shoppingItems.innerHTML = this.shoppingList.map((item, index) => `
+                        <li class="shopping-item">
+                            <div class="item-text">${item}</div>
+                            <div class="item-actions">
+                                <button class="remove-btn" onclick="Exercise3.removeItem(${index})">Remove</button>
+                            </div>
+                        </li>
+                    `).join('');
+                }
+            },
+            
+            // Function to show messages
+            showMessage(message, type) {
+                // Remove existing messages
+                const existingMessages = document.querySelectorAll('#exercise3 .message');
+                existingMessages.forEach(msg => msg.remove());
+                
+                // Create new message
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${type}`;
+                messageDiv.textContent = message;
+                
+                // Insert after the form
+                const form = document.querySelector('#exercise3 .shopping-form');
+                form.insertAdjacentElement('afterend', messageDiv);
+                
+                // Auto-remove message after 3 seconds
+                setTimeout(() => {
+                    messageDiv.remove();
+                }, 3000);
+            },
+            
+            // Function to handle Enter key in input field
+            handleEnterKey(event) {
+                if (event.key === 'Enter') {
+                    this.addItem();
+                }
+            },
+            
+            // Initialize the shopping list application
+            initialize() {
+                console.log('Exercise 3: Shopping List initialized');
+                
+                // Add event listeners
+                document.getElementById('addItemBtn').addEventListener('click', () => this.addItem());
+                document.getElementById('clearAllBtn').addEventListener('click', () => this.clearAll());
+                document.getElementById('itemInput').addEventListener('keypress', (event) => this.handleEnterKey(event));
+                
+                // Initial display update
+                this.updateShoppingListDisplay();
+                
+                console.log('Exercise 3 event listeners attached successfully');
+                console.log('Shopping list array initialized:', this.shoppingList);
+            }
+        };
+
+        // Initialize all exercises when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 All Exercises Combined - Initializing...');
+            
+            // Initialize each exercise
+            Exercise1.initialize();
+            Exercise2.initialize();
+            Exercise3.initialize();
+            
+            console.log('✅ All exercises initialized successfully!');
+            
+            // Additional demonstration for Exercise 1
+            setTimeout(() => {
+                const dynamicSelect = document.getElementById('dynamicGenres');
+                if (dynamicSelect) {
+                    dynamicSelect.value = 'jazz';
+                    document.getElementById('dynamicValue').textContent = 'jazz';
+                    console.log('Programmatically changed selection to jazz');
+                }
+            }, 3000);
+        });
+
+        // Make Exercise3 methods globally available for onclick handlers
+        window.removeItem = (index) => Exercise3.removeItem(index);
+    </script>
+</body>
+</html>
