@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Challenge - HTML Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #2d3748;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .header p {
+            color: #718096;
+            font-size: 1.1em;
+            font-weight: 400;
+        }
+
+        .form-container {
+            background: linear-gradient(145deg, #f7fafc 0%, #edf2f7 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: #2d3748;
+            font-size: 1.1em;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid rgba(226, 232, 240, 0.8);
+            border-radius: 12px;
+            font-size: 1.1em;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            font-family: inherit;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1), 0 4px 20px rgba(102, 126, 234, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .form-group input::placeholder {
+            color: #a0aec0;
+            font-style: italic;
+        }
+
+        .submit-button {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: 700;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .submit-button:hover::before {
+            left: 100%;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5);
+        }
+
+        .submit-button:active {
+            transform: translateY(-1px) scale(1.01);
+        }
+
+        .output-section {
+            background: linear-gradient(145deg, #1a202c 0%, #2d3748 100%);
+            border-radius: 15px;
+            padding: 25px;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #4a5568;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .output-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .output-placeholder {
+            color: #a0aec0;
+            font-style: italic;
+            font-size: 1.1em;
+            text-align: center;
+        }
+
+        .json-output {
+            color: #68d391;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            font-weight: 600;
+            text-align: center;
+            word-break: break-all;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .instructions {
+            background: linear-gradient(145deg, #e6fffa 0%, #f0fff4 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 4px solid #38b2ac;
+        }
+
+        .instructions h3 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+            font-weight: 700;
+        }
+
+        .instructions p {
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            color: #155724;
+            padding: 12px 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 1px solid rgba(195, 230, 203, 0.5);
+            font-weight: 600;
+            text-align: center;
+            display: none;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            .container {
+                padding: 25px;
+                max-width: 100%;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .form-container {
+                padding: 20px;
+            }
+
+            .form-group input {
+                padding: 12px 16px;
+                font-size: 1em;
+            }
+
+            .submit-button {
+                padding: 14px 20px;
+                font-size: 1.1em;
+            }
+
+            .output-section {
+                padding: 20px;
+                min-height: 100px;
+            }
+
+            .json-output {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌟 Daily Challenge</h1>
+            <p>HTML Form with JSON Output</p>
+        </div>
+
+        <div class="instructions">
+            <h3>📝 Instructions:</h3>
+            <p>Create a form with two fields (name, last name) and a submit button. When you click Send, retrieve the data from the inputs and append it on the DOM as a JSON string.</p>
+        </div>
+
+        <form id="userForm" class="form-container">
+            <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" required>
+            </div>
+            
+            <button type="submit" class="submit-button">Send</button>
+        </form>
+
+        <div class="success-message" id="successMessage">
+            ✅ Form data successfully converted to JSON!
+        </div>
+
+        <div class="output-section" id="outputSection">
+            <div class="output-placeholder" id="outputPlaceholder">
+                Form output will appear here as JSON...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get form elements
+        const form = document.getElementById('userForm');
+        const outputSection = document.getElementById('outputSection');
+        const outputPlaceholder = document.getElementById('outputPlaceholder');
+        const successMessage = document.getElementById('successMessage');
+
+        // Handle form submission
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+            
+            // Get form data
+            const formData = new FormData(form);
+            const firstName = formData.get('firstName').trim();
+            const lastName = formData.get('lastName').trim();
+            
+            // Validate inputs
+            if (!firstName || !lastName) {
+                alert('Please fill in both first name and last name fields.');
+                return;
+            }
+            
+            // Create object with form data
+            const userData = {
+                firstName: firstName,
+                lastName: lastName
+            };
+            
+            // Convert to JSON string
+            const jsonString = JSON.stringify(userData, null, 2);
+            
+            // Hide placeholder and show JSON output
+            outputPlaceholder.style.display = 'none';
+            
+            // Create or update JSON output element
+            let jsonOutput = document.querySelector('.json-output');
+            if (!jsonOutput) {
+                jsonOutput = document.createElement('div');
+                jsonOutput.className = 'json-output';
+                outputSection.appendChild(jsonOutput);
+            }
+            
+            // Display JSON string
+            jsonOutput.textContent = jsonString;
+            
+            // Show success message
+            successMessage.style.display = 'block';
+            
+            // Hide success message after 3 seconds
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 3000);
+            
+            // Clear form
+            form.reset();
+            
+            // Optional: Scroll to output
+            outputSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+
+        // Add some interactivity to form inputs
+        const inputs = document.querySelectorAll('input[type="text"]');
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                // Remove any existing error styling
+                this.style.borderColor = 'rgba(226, 232, 240, 0.8)';
+            });
+            
+            input.addEventListener('blur', function() {
+                if (this.value.trim()) {
+                    this.style.borderColor = '#68d391';
+                }
+            });
+        });
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(event) {
+            // Ctrl/Cmd + Enter to submit form
+            if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
+                form.dispatchEvent(new Event('submit'));
+            }
+        });
+    </script>
+</body>
+</html>

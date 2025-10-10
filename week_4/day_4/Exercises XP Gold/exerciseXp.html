@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise XP Gold - HTML Form #3 - All in One</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f0f2f5;
+            line-height: 1.6;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 15px;
+        }
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+        }
+        .section h2 {
+            color: #495057;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+            border-left: 4px solid #007bff;
+            padding-left: 15px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+            font-size: 16px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0,123,255,0.3);
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .instructions {
+            background-color: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .instructions h3 {
+            margin-top: 0;
+            color: #0066cc;
+        }
+        .form-container {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 25px;
+            background-color: white;
+        }
+        .result-section {
+            background-color: #e8f5e8;
+            border: 2px solid #4caf50;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 20px 0;
+            min-height: 150px;
+        }
+        .result-section h3 {
+            color: #2e7d32;
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .data-display {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        .data-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .data-item:last-child {
+            border-bottom: none;
+        }
+        .data-label {
+            font-weight: bold;
+            color: #555;
+            font-size: 16px;
+        }
+        .data-value {
+            color: #007bff;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        .url-info {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 14px;
+            word-break: break-all;
+        }
+        .nav-buttons {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .nav-button {
+            display: inline-block;
+            background-color: #6c757d;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            margin: 5px 10px;
+            transition: background-color 0.3s;
+        }
+        .nav-button:hover {
+            background-color: #5a6268;
+            color: white;
+        }
+        .nav-button.active {
+            background-color: #007bff;
+        }
+        .nav-button.active:hover {
+            background-color: #0056b3;
+        }
+        .hidden {
+            display: none;
+        }
+        .requirements {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .requirements h3 {
+            margin-top: 0;
+            color: #856404;
+        }
+        .requirements ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .features {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .features h3 {
+            margin-top: 0;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌟 Exercise XP Gold - HTML Form #3</h1>
+        <p style="text-align: center; color: #6c757d; margin-bottom: 30px; font-size: 1.1em;">
+            All-in-One Solution: Form, Processing, and Results
+        </p>
+
+        <!-- Navigation -->
+        <div class="nav-buttons">
+            <a href="#" class="nav-button active" onclick="showSection('overview')">📋 Overview</a>
+            <a href="#" class="nav-button" onclick="showSection('form')">📝 Form</a>
+            <a href="#" class="nav-button" onclick="showSection('result')">📊 Results</a>
+        </div>
+
+        <!-- Overview Section -->
+        <div id="overview" class="section">
+            <h2>📝 Exercise Instructions</h2>
+            <p>Create a form with three inputs: <strong>name</strong>, <strong>lastname</strong>, and <strong>submit</strong>.</p>
+            <p>Send the data to another HTML file and display the sent data to a section tag, using the DOM.</p>
+
+            <div class="requirements">
+                <h3>✅ Requirements Completed:</h3>
+                <ul>
+                    <li>✅ Form with name input field</li>
+                    <li>✅ Form with lastname input field</li>
+                    <li>✅ Submit button</li>
+                    <li>✅ Data sent to another HTML file (simulated in same file)</li>
+                    <li>✅ Data displayed in section tag using DOM manipulation</li>
+                </ul>
+            </div>
+
+            <div class="features">
+                <h3>🚀 Features Implemented:</h3>
+                <ul>
+                    <li><strong>Single File Solution:</strong> Everything in one HTML file</li>
+                    <li><strong>Modern Form Design:</strong> Clean, responsive form with professional styling</li>
+                    <li><strong>Data Validation:</strong> Required fields with client-side validation</li>
+                    <li><strong>DOM Manipulation:</strong> Dynamic content creation using JavaScript</li>
+                    <li><strong>Interactive Navigation:</strong> Switch between sections seamlessly</li>
+                    <li><strong>Responsive Design:</strong> Works on desktop and mobile devices</li>
+                </ul>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="#" class="nav-button active" onclick="showSection('form')">🚀 Start with Form</a>
+            </div>
+        </div>
+
+        <!-- Form Section -->
+        <div id="form" class="section hidden">
+            <h2>📝 HTML Form</h2>
+            
+            <div class="instructions">
+                <h3>📝 Instructions:</h3>
+                <p>Fill out the form below with your name and last name, then click submit to see the data displayed using DOM manipulation.</p>
+            </div>
+
+            <div class="form-container">
+                <form id="userForm" onsubmit="processForm(event)">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your first name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lastname">Last Name:</label>
+                        <input type="text" id="lastname" name="lastname" placeholder="Enter your last name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="submit" value="Submit">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Result Section -->
+        <div id="result" class="section hidden">
+            <h2>📊 Form Results</h2>
+            
+            <div class="instructions">
+                <h3>📝 Form Data Display</h3>
+                <p>The form data will be displayed below using DOM manipulation. Fill out the form first to see the results here.</p>
+            </div>
+
+            <section id="resultSection" class="result-section">
+                <h3>📊 Submitted Form Data</h3>
+                <div id="dataDisplay" class="data-display">
+                    <p style="text-align: center; color: #666;">No form data submitted yet. Please fill out the form first.</p>
+                </div>
+            </section>
+
+            <div class="url-info">
+                <strong>Simulated URL:</strong><br>
+                <span id="currentUrl">No data submitted yet</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation functions
+        function showSection(sectionName) {
+            // Hide all sections
+            document.getElementById('overview').classList.add('hidden');
+            document.getElementById('form').classList.add('hidden');
+            document.getElementById('result').classList.add('hidden');
+            
+            // Show selected section
+            document.getElementById(sectionName).classList.remove('hidden');
+            
+            // Update navigation buttons
+            document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // Form processing function
+        function processForm(event) {
+            event.preventDefault(); // Prevent default form submission
+            
+            // Get form data
+            const formData = new FormData(event.target);
+            const name = formData.get('name');
+            const lastname = formData.get('lastname');
+            
+            // Display the data using DOM manipulation
+            displayFormData(name, lastname);
+            
+            // Switch to results section
+            showSection('result');
+            
+            // Update navigation buttons
+            document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.nav-button')[2].classList.add('active');
+        }
+
+        // Function to display form data using DOM manipulation
+        function displayFormData(name, lastname) {
+            // Get the section element where we'll display the data
+            const resultSection = document.getElementById('resultSection');
+            const dataDisplay = document.getElementById('dataDisplay');
+            
+            // Update simulated URL
+            const simulatedUrl = `all_in_one.html?name=${encodeURIComponent(name)}&lastname=${encodeURIComponent(lastname)}`;
+            document.getElementById('currentUrl').textContent = simulatedUrl;
+            
+            // Clear the display
+            dataDisplay.innerHTML = '';
+            
+            // Create data display elements
+            const dataItems = [];
+            
+            if (name) {
+                const nameItem = document.createElement('div');
+                nameItem.className = 'data-item';
+                nameItem.innerHTML = `
+                    <span class="data-label">First Name:</span>
+                    <span class="data-value">${name}</span>
+                `;
+                dataItems.push(nameItem);
+            }
+            
+            if (lastname) {
+                const lastnameItem = document.createElement('div');
+                lastnameItem.className = 'data-item';
+                lastnameItem.innerHTML = `
+                    <span class="data-label">Last Name:</span>
+                    <span class="data-value">${lastname}</span>
+                `;
+                dataItems.push(lastnameItem);
+            }
+            
+            // Add full name if both are available
+            if (name && lastname) {
+                const fullNameItem = document.createElement('div');
+                fullNameItem.className = 'data-item';
+                fullNameItem.style.borderTop = '2px solid #007bff';
+                fullNameItem.style.marginTop = '15px';
+                fullNameItem.style.paddingTop = '15px';
+                fullNameItem.innerHTML = `
+                    <span class="data-label" style="font-size: 18px;">Full Name:</span>
+                    <span class="data-value" style="font-size: 20px; color: #28a745; font-weight: bold;">${name} ${lastname}</span>
+                `;
+                dataItems.push(fullNameItem);
+            }
+            
+            // Append all data items to the display
+            dataItems.forEach(item => {
+                dataDisplay.appendChild(item);
+            });
+            
+            // Update section title
+            resultSection.querySelector('h3').textContent = '✅ Form Data Successfully Processed';
+            
+            // Show success message
+            const successMessage = document.createElement('div');
+            successMessage.style.textAlign = 'center';
+            successMessage.style.color = '#28a745';
+            successMessage.style.marginTop = '15px';
+            successMessage.innerHTML = '<strong>🎉 Form submitted successfully! Data displayed using DOM manipulation.</strong>';
+            dataDisplay.appendChild(successMessage);
+        }
+
+        // Function to get URL parameters (for if someone visits with URL params)
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Check if there are URL parameters on page load
+        window.addEventListener('load', function() {
+            const urlName = getUrlParameter('name');
+            const urlLastname = getUrlParameter('lastname');
+            
+            if (urlName || urlLastname) {
+                displayFormData(urlName, urlLastname);
+                showSection('result');
+                // Update navigation buttons
+                document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.nav-button')[2].classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>

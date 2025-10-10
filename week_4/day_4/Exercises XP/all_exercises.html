@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercises XP: HTTP & Forms - All Exercises Combined</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f0f2f5;
+            line-height: 1.6;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 20px;
+        }
+        .exercise-section {
+            margin-bottom: 50px;
+            padding: 30px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+        }
+        .exercise-section h2 {
+            color: #495057;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-left: 4px solid #007bff;
+            padding-left: 15px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .post-submit {
+            background-color: #28a745;
+        }
+        .post-submit:hover {
+            background-color: #218838;
+        }
+        .info-box {
+            background-color: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        .info-box h3 {
+            margin-top: 0;
+            color: #0066cc;
+        }
+        .network-info {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        .network-info h4 {
+            margin-top: 0;
+            color: #0c5460;
+        }
+        .instructions {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .instructions h3 {
+            margin-top: 0;
+            color: #856404;
+        }
+        pre {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 14px;
+        }
+        .output {
+            background-color: #e6fffa;
+            border: 1px solid #38b2ac;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+        .output h4 {
+            margin-top: 0;
+            color: #234e52;
+        }
+        button {
+            background-color: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #5a67d8;
+        }
+        .answer-box {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        .answer-box h4 {
+            margin-top: 0;
+            color: #155724;
+        }
+        code {
+            background-color: #f8f9fa;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .section-divider {
+            border-top: 3px solid #007bff;
+            margin: 40px 0;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌟 Exercises XP: HTTP & Forms</h1>
+        <p style="text-align: center; font-size: 1.2em; color: #6c757d; margin-bottom: 40px;">
+            Complete HTTP & Forms exercises - All in one file
+        </p>
+
+        <!-- EXERCISE 1: HTML Form with GET Method -->
+        <div class="exercise-section">
+            <h2>🌟 Exercise 1: HTML Form with GET Method</h2>
+            
+            <div class="instructions">
+                <h3>📝 Instructions:</h3>
+                <p>Fill out the form below and click "Send". The form uses the <strong>GET method</strong>.</p>
+                <p><strong>Question:</strong> Where will the sent data appear?</p>
+            </div>
+
+            <form action="#exercise1" method="GET">
+                <div class="form-group">
+                    <label for="name1">Name:</label>
+                    <input type="text" id="name1" name="name" placeholder="Enter your name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="message1">Message:</label>
+                    <textarea id="message1" name="message" placeholder="Write your message here..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <input type="submit" value="Send">
+                </div>
+            </form>
+
+            <div class="info-box">
+                <h3>✅ Answer: Where will the sent data appear?</h3>
+                <p>When you submit this form with GET method, the data will appear in the <strong>URL parameters</strong> (query string) in the browser's address bar.</p>
+                <p><strong>Example:</strong> If you enter name "mehdi" and message "Hello World", the URL will become:</p>
+                <code>all_exercises_combined.html?name=mehdi&message=Hello+World</code>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- EXERCISE 2: HTML Form with POST Method -->
+        <div class="exercise-section">
+            <h2>🌟 Exercise 2: HTML Form with POST Method</h2>
+            
+            <div class="instructions">
+                <h3>📝 Instructions:</h3>
+                <p>Fill out the form below and click "Send". The form uses the <strong>POST method</strong>.</p>
+                <p><strong>Question:</strong> Where will the sent data appear? Hint: Look at the Network Tab</p>
+            </div>
+
+            <form action="#exercise2" method="POST">
+                <div class="form-group">
+                    <label for="name2">Name:</label>
+                    <input type="text" id="name2" name="name" placeholder="Enter your name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="message2">Message:</label>
+                    <textarea id="message2" name="message" placeholder="Write your message here..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <input type="submit" value="Send" class="post-submit">
+                </div>
+            </form>
+
+            <div class="info-box">
+                <h3>✅ Answer: Where will the sent data appear?</h3>
+                <p>When you submit this form with POST method, the data will <strong>NOT</strong> appear in the URL. Instead, it will be sent in the HTTP request body.</p>
+                
+                <div class="network-info">
+                    <h4>🔍 How to see the POST data:</h4>
+                    <ol>
+                        <li>Open your browser's Developer Tools (F12)</li>
+                        <li>Go to the <strong>Network</strong> tab</li>
+                        <li>Fill out and submit the form above</li>
+                        <li>Look for the request to this page</li>
+                        <li>Click on that request</li>
+                        <li>Go to the <strong>Request</strong> or <strong>Payload</strong> section</li>
+                        <li>You'll see the form data there in the request body</li>
+                    </ol>
+                    <p><strong>Note:</strong> Since this is a static HTML file, the form won't actually process the data, but you can still see it being sent in the Network tab!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- EXERCISE 3: JSON Mario -->
+        <div class="exercise-section">
+            <h2>🌟 Exercise 3: JSON Mario</h2>
+
+            <div class="instructions">
+                <h3>📝 Instructions:</h3>
+                <p>This exercise demonstrates JavaScript object to JSON conversion. Use the buttons below to see different JSON outputs and check the browser console for debugging.</p>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h3>1. Original JavaScript Object</h3>
+                <pre id="originalObject"></pre>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h3>2. Convert to JSON (Basic)</h3>
+                <button onclick="convertToJSON()">Convert to JSON</button>
+                <div class="output" id="jsonOutput">
+                    <h4>JSON Output:</h4>
+                    <pre id="jsonResult">Click the button above to see JSON conversion</pre>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h3>3. Convert to JSON (Pretty Print)</h3>
+                <button onclick="convertToPrettyJSON()">Convert to Pretty JSON</button>
+                <div class="output" id="prettyJsonOutput">
+                    <h4>Pretty JSON Output:</h4>
+                    <pre id="prettyJsonResult">Click the button above to see pretty JSON</pre>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h3>4. Debugging with Web Inspector</h3>
+                <button onclick="debugJSON()">Add Breakpoint & Debug</button>
+                <div class="output">
+                    <h4>Instructions for Debugging:</h4>
+                    <ol>
+                        <li>Open Developer Tools (F12)</li>
+                        <li>Go to the <strong>Sources</strong> tab</li>
+                        <li>Click the "Add Breakpoint & Debug" button above</li>
+                        <li>Click on the debugger line in the console</li>
+                        <li>Check the values of the JSON objects in the debugger</li>
+                        <li>You can inspect the variables in the <strong>Scope</strong> panel</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="answer-box">
+                <h4>✅ Answer: What happens to nested objects?</h4>
+                <p>When converting JavaScript objects to JSON:</p>
+                <ul>
+                    <li><strong>Nested objects are preserved</strong> - They remain as nested structures in the JSON</li>
+                    <li><strong>Property names</strong> are automatically quoted with double quotes</li>
+                    <li><strong>Values</strong> are converted to appropriate JSON data types (strings, numbers, booleans, arrays, objects)</li>
+                    <li><strong>Functions</strong> are omitted (JSON doesn't support functions)</li>
+                    <li><strong>Undefined values</strong> are omitted</li>
+                </ul>
+                <p>In our Mario game example, the <code>characters</code> object contains nested objects for each character (mario, bowser, princessPeach), and these nested structures are maintained in the JSON output.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Original Mario Game Object
+        const marioGame = {
+            detail: "An amazing game!",
+            characters: {
+                mario: {
+                    description: "Small and jumpy. Likes princesses.",
+                    height: 10,
+                    weight: 3,
+                    speed: 12,
+                },
+                bowser: {
+                    description: "Big and green, Hates princesses.",
+                    height: 16,
+                    weight: 6,
+                    speed: 4,
+                },
+                princessPeach: {
+                    description: "Beautiful princess.",
+                    height: 12,
+                    weight: 2,
+                    speed: 2,
+                }
+            },
+        };
+
+        // Display the original object when page loads
+        window.onload = function() {
+            document.getElementById('originalObject').textContent = JSON.stringify(marioGame, null, 2);
+            convertToPrettyJSON(); // Auto-show pretty JSON
+        };
+
+        // Function to convert to basic JSON
+        function convertToJSON() {
+            const jsonString = JSON.stringify(marioGame);
+            document.getElementById('jsonResult').textContent = jsonString;
+        }
+
+        // Function to convert to pretty JSON
+        function convertToPrettyJSON() {
+            const prettyJsonString = JSON.stringify(marioGame, null, 2);
+            document.getElementById('prettyJsonResult').textContent = prettyJsonString;
+        }
+
+        // Function to demonstrate debugging
+        function debugJSON() {
+            console.log("=== DEBUGGING JSON CONVERSION ===");
+            
+            // Convert to JSON
+            const jsonString = JSON.stringify(marioGame);
+            const prettyJsonString = JSON.stringify(marioGame, null, 2);
+            
+            // Parse back to object
+            const parsedObject = JSON.parse(jsonString);
+            
+            console.log("Original Object:", marioGame);
+            console.log("JSON String:", jsonString);
+            console.log("Pretty JSON:", prettyJsonString);
+            console.log("Parsed Object:", parsedObject);
+            
+            // Set breakpoint here - check the console and debugger
+            debugger; // This will trigger a breakpoint in the debugger
+            
+            alert("Check the browser console and debugger for the JSON values!");
+        }
+    </script>
+</body>
+</html>

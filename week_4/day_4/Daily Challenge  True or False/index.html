@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Challenge - True or False</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-weight: 800;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .main-content {
+            padding: 40px;
+        }
+
+        .challenge-section {
+            background: linear-gradient(145deg, #f7fafc 0%, #edf2f7 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .challenge-section h2 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            font-weight: 700;
+            border-left: 4px solid #667eea;
+            padding-left: 15px;
+        }
+
+        .instructions {
+            background: linear-gradient(145deg, #e6fffa 0%, #f0fff4 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 4px solid #38b2ac;
+        }
+
+        .instructions h3 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+            font-weight: 700;
+        }
+
+        .instructions p {
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            overflow-x: auto;
+            margin: 15px 0;
+            border: 1px solid #4a5568;
+        }
+
+        .examples-section {
+            background: linear-gradient(145deg, #fff3cd 0%, #ffeaa7 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 4px solid #ffc107;
+        }
+
+        .examples-section h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            font-weight: 700;
+        }
+
+        .example {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+
+        .testing-section {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .testing-section h2 {
+            color: #2d3748;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: #2d3748;
+            font-size: 1.1em;
+        }
+
+        .parameter-inputs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .parameter-input {
+            flex: 1;
+            min-width: 120px;
+            padding: 12px;
+            border: 2px solid rgba(226, 232, 240, 0.8);
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .parameter-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .parameter-input::placeholder {
+            color: #a0aec0;
+            font-style: italic;
+        }
+
+        .preset-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .preset-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .preset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .test-button {
+            width: 100%;
+            background: linear-gradient(135deg, #38b2ac 0%, #319795 100%);
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(56, 178, 172, 0.4);
+            margin-bottom: 20px;
+        }
+
+        .test-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 35px rgba(56, 178, 172, 0.5);
+        }
+
+        .result-section {
+            background: linear-gradient(145deg, #1a202c 0%, #2d3748 100%);
+            border-radius: 15px;
+            padding: 25px;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #4a5568;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .result-placeholder {
+            color: #a0aec0;
+            font-style: italic;
+            font-size: 1.1em;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .result-output {
+            color: #68d391;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2em;
+            font-weight: 700;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .result-output.true {
+            color: #68d391;
+        }
+
+        .result-output.false {
+            color: #fc8181;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            color: #155724;
+            padding: 12px 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 1px solid rgba(195, 230, 203, 0.5);
+            font-weight: 600;
+            text-align: center;
+            display: none;
+            animation: slideDown 0.3s ease-out;
+        }
+
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .parameter-inputs {
+                flex-direction: column;
+            }
+
+            .parameter-input {
+                min-width: 100%;
+            }
+
+            .preset-buttons {
+                flex-direction: column;
+            }
+
+            .preset-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌟 Daily Challenge</h1>
+            <p>True or False - Array Methods & Conditionals</p>
+        </div>
+
+        <div class="main-content">
+            <!-- Interactive Testing Section -->
+            <div class="testing-section">
+                <h2>🧪 Interactive Testing</h2>
+                
+                <div class="input-group">
+                    <label>Test Parameters (separate with commas):</label>
+                    <div class="parameter-inputs" id="parameterInputs">
+                        <input type="text" class="parameter-input" placeholder="true" value="true">
+                        <input type="text" class="parameter-input" placeholder="true" value="true">
+                        <input type="text" class="parameter-input" placeholder="true" value="true">
+                        <input type="text" class="parameter-input" placeholder="Add more...">
+                        <input type="text" class="parameter-input" placeholder="Add more...">
+                    </div>
+                </div>
+
+                <div class="preset-buttons">
+                    <button class="preset-btn" onclick="loadPreset('example1')">Example 1</button>
+                    <button class="preset-btn" onclick="loadPreset('example2')">Example 2</button>
+                    <button class="preset-btn" onclick="loadPreset('example3')">Example 3</button>
+                </div>
+
+                <button class="test-button" onclick="testFunction()">🚀 Test Function</button>
+
+                <div class="success-message" id="successMessage">
+                    ✅ Function executed successfully!
+                </div>
+
+
+                <div class="result-section" id="resultSection">
+                    <div class="result-placeholder" id="resultPlaceholder">
+                        Function result will appear here...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // The allTruthy function - Solution to the challenge
+        function allTruthy(...args) {
+            // Check if all arguments are truthy
+            return args.every(arg => Boolean(arg));
+        }
+
+
+        // Preset examples
+        const presets = {
+            example1: ['true', 'true', 'true'],
+            example2: ['true', 'false', 'true'],
+            example3: ['5', '4', '3', '2', '1', '0']
+        };
+
+        // Load preset values
+        function loadPreset(presetName) {
+            const values = presets[presetName];
+            if (values) {
+                const inputs = document.querySelectorAll('.parameter-input');
+                inputs.forEach((input, index) => {
+                    if (index < values.length) {
+                        input.value = values[index];
+                    } else {
+                        input.value = '';
+                    }
+                });
+            }
+        }
+
+
+        // Parse input values to appropriate types
+        function parseValue(value) {
+            const trimmed = value.trim();
+            
+            // Handle boolean strings
+            if (trimmed.toLowerCase() === 'true') return true;
+            if (trimmed.toLowerCase() === 'false') return false;
+            
+            // Handle null/undefined
+            if (trimmed.toLowerCase() === 'null') return null;
+            if (trimmed.toLowerCase() === 'undefined') return undefined;
+            
+            // Handle numbers
+            if (!isNaN(trimmed) && trimmed !== '') {
+                return Number(trimmed);
+            }
+            
+            // Handle strings
+            return trimmed;
+        }
+
+        // Test the function
+        function testFunction() {
+            const inputs = document.querySelectorAll('.parameter-input');
+            const values = Array.from(inputs)
+                .map(input => input.value.trim())
+                .filter(value => value !== '');
+            
+            if (values.length === 0) return;
+
+            const parsedValues = values.map(parseValue);
+            const result = allTruthy(...parsedValues);
+            
+            displayResult(result, parsedValues);
+            showMessage();
+        }
+
+        // Display the result
+        function displayResult(result, values) {
+            const resultSection = document.getElementById('resultSection');
+            const resultPlaceholder = document.getElementById('resultPlaceholder');
+            
+            // Hide placeholder
+            resultPlaceholder.style.display = 'none';
+            
+            // Create result display
+            let resultOutput = document.querySelector('.result-output');
+            if (!resultOutput) {
+                resultOutput = document.createElement('div');
+                resultOutput.className = 'result-output';
+                resultSection.appendChild(resultOutput);
+            }
+            
+            // Set result text and styling
+            resultOutput.textContent = `allTruthy(${values.join(', ')}) ➞ ${result}`;
+            resultOutput.className = `result-output ${result ? 'true' : 'false'}`;
+        }
+
+        // Show success message
+        function showMessage() {
+            const successMsg = document.getElementById('successMessage');
+            successMsg.style.display = 'block';
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 3000);
+        }
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                testFunction();
+            }
+        });
+
+        // Initialize with first example
+        window.addEventListener('load', function() {
+            loadPreset('example1');
+        });
+    </script>
+</body>
+</html>
