@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercises XP Ninja - Giphy API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        
+        input[type="text"] {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+        
+        button {
+            padding: 12px 24px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        .delete-btn {
+            background-color: #f44336;
+            margin-left: 10px;
+        }
+        
+        .delete-btn:hover {
+            background-color: #da190b;
+        }
+        
+        .gifs-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .gif-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .gif-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .gif-info {
+            padding: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        
+        .error {
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .no-gifs {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌟 Exercises XP Ninja - Giphy API #3</h1>
+        
+        <div class="form-container">
+            <input type="text" id="categoryInput" placeholder="Enter a category (e.g., cats, dogs, funny)" />
+            <button id="fetchBtn">Fetch GIFs</button>
+            <button id="deleteAllBtn" class="delete-btn">Delete All GIFs</button>
+        </div>
+        
+        <div id="message"></div>
+        <div id="gifsContainer" class="gifs-container"></div>
+    </div>
+
+    <script>
+        // 🌟 Exercises XP Ninja: Fetch API & Async/Await
+        // This file contains all exercises including the Giphy API integration
+
+        console.log("🌟 Exercises XP Ninja: Fetch API & Async/Await");
+        console.log("===============================================");
+
+        // Exercise 1: Giphy API #3 - HTML Form Integration
+        console.log("\n📝 Exercise 1: Giphy API #3 - HTML Form Integration");
+
+        // DOM elements
+        const categoryInput = document.getElementById('categoryInput');
+        const fetchBtn = document.getElementById('fetchBtn');
+        const deleteAllBtn = document.getElementById('deleteAllBtn');
+        const messageDiv = document.getElementById('message');
+        const gifsContainer = document.getElementById('gifsContainer');
+
+        // Giphy API configuration
+        const GIPHY_API_KEY = 'hpvZycW22qCjn5cRM1xtWB8NKq4dQ2My';
+        const GIPHY_BASE_URL = 'https://api.giphy.com/v1/gifs/search';
+
+        // Function to show messages
+        function showMessage(text, isError = false) {
+            messageDiv.innerHTML = `<div class="${isError ? 'error' : 'loading'}">${text}</div>`;
+        }
+
+        // Function to clear messages
+        function clearMessage() {
+            messageDiv.innerHTML = '';
+        }
+
+        // Function to fetch GIFs from Giphy API
+        async function fetchGifs(category) {
+            const url = `${GIPHY_BASE_URL}?q=${encodeURIComponent(category)}&limit=10&rating=g&api_key=${GIPHY_API_KEY}`;
+            
+            try {
+                showMessage('Loading GIFs...');
+                
+                const response = await fetch(url);
+                
+                // Check the status of the response
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.data.length === 0) {
+                    showMessage(`No GIFs found for "${category}". Try a different category.`);
+                    return;
+                }
+                
+                clearMessage();
+                displayGifs(data.data);
+                
+                console.log(`✅ Successfully fetched ${data.data.length} GIFs for "${category}"`);
+                
+            } catch (error) {
+                console.error('❌ Error fetching GIFs:', error);
+                showMessage(`Error fetching GIFs: ${error.message}`, true);
+            }
+        }
+
+        // Function to display GIFs on the page
+        function displayGifs(gifs) {
+            gifs.forEach(gif => {
+                const gifItem = document.createElement('div');
+                gifItem.className = 'gif-item';
+                
+                // Get the GIF URL from the images sub-object
+                const gifUrl = gif.images.original.url;
+                const title = gif.title || 'Untitled GIF';
+                
+                gifItem.innerHTML = `
+                    <img src="${gifUrl}" alt="${title}" loading="lazy" />
+                    <div class="gif-info">
+                        <strong>${title}</strong>
+                    </div>
+                `;
+                
+                gifsContainer.appendChild(gifItem);
+            });
+        }
+
+        // Function to delete all GIFs
+        function deleteAllGifs() {
+            gifsContainer.innerHTML = '';
+            clearMessage();
+            showMessage('All GIFs have been deleted.');
+            
+            // Clear message after 2 seconds
+            setTimeout(() => {
+                clearMessage();
+            }, 2000);
+            
+            console.log('✅ All GIFs deleted');
+        }
+
+        // Event listeners
+        fetchBtn.addEventListener('click', () => {
+            const category = categoryInput.value.trim();
+            
+            if (!category) {
+                showMessage('Please enter a category!', true);
+                return;
+            }
+            
+            fetchGifs(category);
+        });
+
+        // Allow Enter key to trigger fetch
+        categoryInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                fetchBtn.click();
+            }
+        });
+
+        deleteAllBtn.addEventListener('click', deleteAllGifs);
+
+        // Initialize with a default category
+        window.addEventListener('load', () => {
+            console.log('✅ Exercise 1 - Giphy API #3 initialized');
+            console.log('You can now search for GIFs by category!');
+        });
+
+        // Exercise 2: Analyze #4 - Promise.all
+        console.log("\n📝 Exercise 2: Analyze #4 - Promise.all");
+
+        function resolveAfter2Seconds() {
+            console.log("starting slow promise");
+            return new Promise(resolve => {
+                setTimeout(function () {
+                    resolve("slow");
+                    console.log("slow promise is done");
+                }, 2000);
+            });
+        }
+
+        function resolveAfter1Second() {
+            console.log("starting fast promise");
+            return new Promise(resolve => {
+                setTimeout(function () {
+                    resolve("fast");
+                    console.log("fast promise is done");
+                }, 1000);
+            });
+        }
+
+        function concurrentPromise() {
+            console.log('==CONCURRENT START with Promise.all==');
+            return Promise.all([resolveAfter2Seconds(), resolveAfter1Second()]).then((messages) => {
+                console.log(messages[0]);
+                console.log(messages[1]);
+            });
+        }
+
+        function exercise2() {
+            console.log("=== Analysis of Promise.all ===");
+            console.log("The code will execute in this order:");
+            console.log("1. After 1 second delay: '==CONCURRENT START with Promise.all=='");
+            console.log("2. 'starting slow promise' (immediately)");
+            console.log("3. 'starting fast promise' (immediately)");
+            console.log("4. After 1 second: 'fast promise is done'");
+            console.log("5. After 2 seconds: 'slow promise is done'");
+            console.log("6. 'slow' (logged immediately after step 5)");
+            console.log("7. 'fast' (logged immediately after step 6)");
+            console.log("\nTotal time: ~3 seconds (1s delay + 2s for slowest promise)");
+            console.log("\n=== Running the actual function ===");
+            
+            return concurrentPromise();
+        }
+
+        // Exercise 3: Analyze #5 - Parallel with await Promise.all
+        console.log("\n📝 Exercise 3: Analyze #5 - Parallel with await Promise.all");
+
+        async function parallel() {
+            console.log('==PARALLEL with await Promise.all==');
+            // Start 2 "jobs" in parallel and wait for both of them to complete
+            await Promise.all([
+                (async () => console.log(await resolveAfter2Seconds()))(),
+                (async () => console.log(await resolveAfter1Second()))()
+            ]);
+        }
+
+        function exercise3() {
+            console.log("=== Analysis of Parallel with await Promise.all ===");
+            console.log("The code will execute in this order:");
+            console.log("1. After 5 seconds delay: '==PARALLEL with await Promise.all=='");
+            console.log("2. 'starting slow promise' (immediately)");
+            console.log("3. 'starting fast promise' (immediately)");
+            console.log("4. After 1 second: 'fast promise is done'");
+            console.log("5. 'fast' (logged immediately after step 4)");
+            console.log("6. After 2 seconds: 'slow promise is done'");
+            console.log("7. 'slow' (logged immediately after step 6)");
+            console.log("\nTotal time: ~7 seconds (5s delay + 2s for slowest promise)");
+            console.log("\n=== Running the actual function ===");
+            
+            return parallel();
+        }
+
+        // Exercise 4: Analyze #6 - Parallel with Promise.then
+        console.log("\n📝 Exercise 4: Analyze #6 - Parallel with Promise.then");
+
+        function parallelPromise() {
+            console.log('==PARALLEL with Promise.then==');
+            resolveAfter2Seconds().then((message) => console.log(message));
+            resolveAfter1Second().then((message) => console.log(message));
+        }
+
+        function exercise4() {
+            console.log("=== Analysis of Parallel with Promise.then ===");
+            console.log("The code will execute in this order:");
+            console.log("1. After 13 seconds delay: '==PARALLEL with Promise.then=='");
+            console.log("2. 'starting slow promise' (immediately)");
+            console.log("3. 'starting fast promise' (immediately)");
+            console.log("4. After 1 second: 'fast promise is done'");
+            console.log("5. 'fast' (logged immediately after step 4)");
+            console.log("6. After 2 seconds: 'slow promise is done'");
+            console.log("7. 'slow' (logged immediately after step 6)");
+            console.log("\nTotal time: ~15 seconds (13s delay + 2s for slowest promise)");
+            console.log("\n=== Running the actual function ===");
+            
+            return parallelPromise();
+        }
+
+        // Run analysis exercises with delays
+        function runAnalysisExercises() {
+            console.log("\n🚀 Running analysis exercises with delays...\n");
+            
+            // Exercise 2 - runs after 1 second
+            setTimeout(() => {
+                exercise2();
+            }, 1000);
+            
+            // Exercise 3 - runs after 5 seconds
+            setTimeout(() => {
+                exercise3();
+            }, 5000);
+            
+            // Exercise 4 - runs after 13 seconds
+            setTimeout(() => {
+                exercise4();
+            }, 13000);
+        }
+
+        // Individual exercise runners
+        function runExercise1() {
+            console.log("Exercise 1 is already running in the browser!");
+            console.log("Try searching for GIFs using the form!");
+        }
+
+        function runExercise2() {
+            return exercise2();
+        }
+
+        function runExercise3() {
+            return exercise3();
+        }
+
+        function runExercise4() {
+            return exercise4();
+        }
+
+        // Auto-run analysis exercises when the script loads
+        runAnalysisExercises();
+
+        console.log("\n🎉 Exercises XP Ninja loaded!");
+        console.log("Exercise 1: Giphy API form is ready to use!");
+        console.log("Analysis exercises will run automatically with delays.");
+    </script>
+</body>
+</html>

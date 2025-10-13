@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Challenge: Promise.all()</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .city-section {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #fafafa;
+        }
+        
+        .city-section h3 {
+            margin-top: 0;
+            color: #4CAF50;
+            text-align: center;
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+        
+        .preset-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        
+        button {
+            padding: 12px 24px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        .preset-btn {
+            background-color: #2196F3;
+        }
+        
+        .preset-btn:hover {
+            background-color: #1976D2;
+        }
+        
+        .fetch-btn {
+            width: 100%;
+            margin-top: 20px;
+            background-color: #FF9800;
+        }
+        
+        .fetch-btn:hover {
+            background-color: #F57C00;
+        }
+        
+        .results-container {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            background-color: #f8fff8;
+            display: none;
+        }
+        
+        .results-container.show {
+            display: block;
+        }
+        
+        .city-result {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: white;
+        }
+        
+        .city-result h4 {
+            margin-top: 0;
+            color: #4CAF50;
+        }
+        
+        .sunrise-info {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin: 10px 0;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        
+        .error {
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .success {
+            background-color: #e8f5e8;
+            color: #2e7d32;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌟 Daily Challenge: Promise.all()</h1>
+        <p style="text-align: center; color: #666; margin-bottom: 30px;">
+            Find sunrise times for two cities using Promise.all()
+        </p>
+        
+        <div class="preset-buttons">
+            <button class="preset-btn" onclick="fillParisNewYork()">Fill Paris & New York</button>
+            <button class="preset-btn" onclick="clearForm()">Clear Form</button>
+        </div>
+        
+        <div class="form-container">
+            <div class="city-section">
+                <h3>🏙️ City 1</h3>
+                <div class="input-group">
+                    <label for="city1Lat">Latitude:</label>
+                    <input type="number" id="city1Lat" step="any" placeholder="e.g., 48.864716">
+                </div>
+                <div class="input-group">
+                    <label for="city1Lng">Longitude:</label>
+                    <input type="number" id="city1Lng" step="any" placeholder="e.g., 2.349014">
+                </div>
+            </div>
+            
+            <div class="city-section">
+                <h3>🏙️ City 2</h3>
+                <div class="input-group">
+                    <label for="city2Lat">Latitude:</label>
+                    <input type="number" id="city2Lat" step="any" placeholder="e.g., 40.730610">
+                </div>
+                <div class="input-group">
+                    <label for="city2Lng">Longitude:</label>
+                    <input type="number" id="city2Lng" step="any" placeholder="e.g., -73.935242">
+                </div>
+            </div>
+        </div>
+        
+        <button class="fetch-btn" id="fetchBtn">🌅 Get Sunrise Times</button>
+        
+        <div id="message"></div>
+        <div id="resultsContainer" class="results-container"></div>
+    </div>
+
+    <script>
+        // 🌟 Daily Challenge: Promise.all()
+        // Sunrise API implementation with Promise.all()
+
+        console.log("🌟 Daily Challenge: Promise.all()");
+        console.log("=================================");
+
+        // DOM elements
+        const city1LatInput = document.getElementById('city1Lat');
+        const city1LngInput = document.getElementById('city1Lng');
+        const city2LatInput = document.getElementById('city2Lat');
+        const city2LngInput = document.getElementById('city2Lng');
+        const fetchBtn = document.getElementById('fetchBtn');
+        const messageDiv = document.getElementById('message');
+        const resultsContainer = document.getElementById('resultsContainer');
+
+        // Sunrise API base URL
+        const SUNRISE_API_URL = 'https://api.sunrise-sunset.org/json';
+
+        // Function to show messages
+        function showMessage(text, isError = false, isSuccess = false) {
+            const className = isError ? 'error' : isSuccess ? 'success' : 'loading';
+            messageDiv.innerHTML = `<div class="${className}">${text}</div>`;
+        }
+
+        // Function to clear messages
+        function clearMessage() {
+            messageDiv.innerHTML = '';
+        }
+
+        // Function to fetch sunrise data for a single city
+        async function fetchSunriseData(lat, lng, cityName) {
+            const url = `${SUNRISE_API_URL}?lat=${lat}&lng=${lng}&formatted=0`;
+            
+            try {
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.status !== 'OK') {
+                    throw new Error(`API error: ${data.status}`);
+                }
+                
+                return {
+                    city: cityName,
+                    lat: lat,
+                    lng: lng,
+                    sunrise: data.results.sunrise,
+                    sunset: data.results.sunset,
+                    dayLength: data.results.day_length
+                };
+                
+            } catch (error) {
+                console.error(`❌ Error fetching sunrise data for ${cityName}:`, error);
+                throw error;
+            }
+        }
+
+        // Function to display results
+        function displayResults(city1Data, city2Data) {
+            resultsContainer.innerHTML = `
+                <h3 style="text-align: center; color: #4CAF50; margin-top: 0;">🌅 Sunrise Results</h3>
+                
+                <div class="city-result">
+                    <h4>🏙️ ${city1Data.city}</h4>
+                    <p><strong>Coordinates:</strong> ${city1Data.lat}, ${city1Data.lng}</p>
+                    <div class="sunrise-info">🌅 Sunrise: ${new Date(city1Data.sunrise).toLocaleTimeString()}</div>
+                    <div class="sunrise-info">🌇 Sunset: ${new Date(city1Data.sunset).toLocaleTimeString()}</div>
+                    <p><strong>Day Length:</strong> ${city1Data.dayLength}</p>
+                </div>
+                
+                <div class="city-result">
+                    <h4>🏙️ ${city2Data.city}</h4>
+                    <p><strong>Coordinates:</strong> ${city2Data.lat}, ${city2Data.lng}</p>
+                    <div class="sunrise-info">🌅 Sunrise: ${new Date(city2Data.sunrise).toLocaleTimeString()}</div>
+                    <div class="sunrise-info">🌇 Sunset: ${new Date(city2Data.sunset).toLocaleTimeString()}</div>
+                    <p><strong>Day Length:</strong> ${city2Data.dayLength}</p>
+                </div>
+            `;
+            
+            resultsContainer.classList.add('show');
+        }
+
+        // Main function using Promise.all()
+        async function getSunriseTimes() {
+            const city1Lat = parseFloat(city1LatInput.value);
+            const city1Lng = parseFloat(city1LngInput.value);
+            const city2Lat = parseFloat(city2LatInput.value);
+            const city2Lng = parseFloat(city2LngInput.value);
+            
+            // Validate inputs
+            if (isNaN(city1Lat) || isNaN(city1Lng) || isNaN(city2Lat) || isNaN(city2Lng)) {
+                showMessage('Please enter valid coordinates for both cities!', true);
+                return;
+            }
+            
+            if (city1Lat < -90 || city1Lat > 90 || city2Lat < -90 || city2Lat > 90) {
+                showMessage('Latitude must be between -90 and 90 degrees!', true);
+                return;
+            }
+            
+            if (city1Lng < -180 || city1Lng > 180 || city2Lng < -180 || city2Lng > 180) {
+                showMessage('Longitude must be between -180 and 180 degrees!', true);
+                return;
+            }
+            
+            try {
+                showMessage('Loading sunrise data for both cities...');
+                
+                // Use Promise.all() to fetch both cities simultaneously
+                const [city1Data, city2Data] = await Promise.all([
+                    fetchSunriseData(city1Lat, city1Lng, 'City 1'),
+                    fetchSunriseData(city2Lat, city2Lng, 'City 2')
+                ]);
+                
+                clearMessage();
+                displayResults(city1Data, city2Data);
+                showMessage('✅ Sunrise times retrieved successfully for both cities!', false, true);
+                
+                console.log('✅ Promise.all() completed successfully!');
+                console.log('City 1 Data:', city1Data);
+                console.log('City 2 Data:', city2Data);
+                
+            } catch (error) {
+                console.error('❌ Error in Promise.all():', error);
+                showMessage(`Error: ${error.message}`, true);
+                resultsContainer.classList.remove('show');
+            }
+        }
+
+        // Preset functions
+        function fillParisNewYork() {
+            city1LatInput.value = '48.864716';
+            city1LngInput.value = '2.349014';
+            city2LatInput.value = '40.730610';
+            city2LngInput.value = '-73.935242';
+            
+            showMessage('✅ Paris and New York coordinates filled!', false, true);
+            setTimeout(clearMessage, 2000);
+        }
+
+        function clearForm() {
+            city1LatInput.value = '';
+            city1LngInput.value = '';
+            city2LatInput.value = '';
+            city2LngInput.value = '';
+            resultsContainer.classList.remove('show');
+            clearMessage();
+        }
+
+        // Event listeners
+        fetchBtn.addEventListener('click', getSunriseTimes);
+
+        // Allow Enter key to trigger fetch
+        [city1LatInput, city1LngInput, city2LatInput, city2LngInput].forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    fetchBtn.click();
+                }
+            });
+        });
+
+        // Initialize when page loads
+        window.addEventListener('load', () => {
+            console.log('✅ Daily Challenge: Promise.all() initialized');
+            console.log('You can now enter coordinates for two cities!');
+            console.log('Use the preset button to fill Paris and New York coordinates.');
+            console.log('Promise.all() will fetch sunrise data for both cities simultaneously.');
+        });
+    </script>
+</body>
+</html>
