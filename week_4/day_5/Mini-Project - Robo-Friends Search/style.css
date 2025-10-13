@@ -1,0 +1,204 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Orbitron', monospace;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px 0;
+}
+
+h1 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    margin-bottom: 30px;
+    background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.search-container {
+    position: relative;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+#searchBox {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    border: 2px solid #00ffff;
+    border-radius: 25px;
+    background: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    outline: none;
+    transition: all 0.3s ease;
+    font-family: 'Orbitron', monospace;
+}
+
+#searchBox:focus {
+    border-color: #ff00ff;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    background: rgba(0, 0, 0, 0.5);
+}
+
+#searchBox::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+}
+
+.robot-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.robot-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.robot-card:hover::before {
+    left: 100%;
+}
+
+.robot-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 255, 255, 0.3);
+    border-color: #ff00ff;
+}
+
+.robot-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    border: 3px solid #00ffff;
+    transition: all 0.3s ease;
+    object-fit: cover;
+}
+
+.robot-card:hover .robot-image {
+    border-color: #ff00ff;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+.robot-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #00ffff;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.robot-username {
+    font-size: 1rem;
+    color: #ff00ff;
+    margin-bottom: 15px;
+    font-weight: 400;
+}
+
+.robot-email {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    word-break: break-all;
+    line-height: 1.4;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    .cards-container {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    
+    .robot-card {
+        padding: 20px;
+    }
+    
+    .robot-image {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .cards-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+}
+
+/* Loading animation */
+.loading {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #00ffff;
+    margin: 50px 0;
+}
+
+/* No results message */
+.no-results {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #ff6b6b;
+    margin: 50px 0;
+    grid-column: 1 / -1;
+}
