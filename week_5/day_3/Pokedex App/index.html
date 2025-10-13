@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png" alt="Pokédex Logo" class="logo-img">
+            </div>
+            <h1>Pokédex</h1>
+        </header>
+
+        <main class="pokedex">
+            <div class="pokedex-screen">
+                <div id="pokemonContainer" class="pokemon-container">
+                    <div class="welcome-message">
+                        <i class="fas fa-pokeball"></i>
+                        <h3>Welcome to the Pokédex!</h3>
+                        <p>Click "Random Pokémon" to start exploring!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button id="prevBtn" class="control-btn prev-btn" disabled>
+                    <i class="fas fa-chevron-left"></i>
+                    Previous
+                </button>
+                
+                <button id="randomBtn" class="control-btn random-btn">
+                    <i class="fas fa-random"></i>
+                    Random Pokémon
+                </button>
+                
+                <button id="nextBtn" class="control-btn next-btn" disabled>
+                    Next
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
