@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname)));
 
 // Hide API key in environment variable
-const API_KEY = process.env.EXCHANGE_RATE_API_KEY || 'cdf54a5527726b8d3ee5c460';
+const API_KEY = process.env.EXCHANGE_RATE_API_KEY ;
 const BASE_URL = 'https://v6.exchangerate-api.com/v6';
 
 // Route to get supported currencies
@@ -56,3 +56,4 @@ app.listen(PORT, () => {
 // 1. npm init -y
 // 2. npm install express cors node-fetch
 // 3. node server.js
+
