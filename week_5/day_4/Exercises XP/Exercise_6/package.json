@@ -1,0 +1,16 @@
+{
+  "name": "npm-beginner",
+  "version": "1.0.0",
+  "description": "Exercise 6: Simple NPM Package Usage with chalk",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["chalk", "colors", "terminal", "npm"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.2"
+  }
+}

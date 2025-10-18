@@ -1,0 +1,10 @@
+This is a sample text file for testing the read command.
+
+The ninja-utility is a powerful command-line tool that demonstrates:
+- Node.js module system
+- npm package management
+- External API integration
+- File system operations
+
+Have fun exploring the different commands! 🚀
+

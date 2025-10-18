@@ -1,0 +1,10 @@
+{
+  "name": "todo-app-exercise-4",
+  "version": "1.0.0",
+  "description": "Exercise 4: Todo List using ES6 module syntax",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  }
+}

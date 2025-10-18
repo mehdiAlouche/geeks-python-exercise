@@ -1,0 +1,21 @@
+{
+  "name": "nodejs-date-challenges",
+  "version": "1.0.0",
+  "description": "Node.js Date Challenges - Exercises 1, 2, and 3",
+  "main": "index.js",
+  "scripts": {
+    "ex1": "node exercise1/script.js",
+    "ex2": "node exercise2/script.js",
+    "ex2-bonus": "node exercise2/script-bonus.js",
+    "ex3": "node exercise3/script.js",
+    "ex3-bonus": "node exercise3/script-bonus.js"
+  },
+  "keywords": ["nodejs", "dates", "exercises"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "date-holidays": "^4.3.4",
+    "prompt-sync": "^4.2.0"
+  }
+}
+

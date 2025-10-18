@@ -1,0 +1,3 @@
+This is an example text file for the file management exercise.
+It contains some sample content to demonstrate file operations.
+We will use this file to test path manipulation and file information retrieval.

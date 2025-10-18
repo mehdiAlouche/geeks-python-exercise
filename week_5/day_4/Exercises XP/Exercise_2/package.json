@@ -1,0 +1,10 @@
+{
+  "name": "exercise-2-es6-modules",
+  "version": "1.0.0",
+  "description": "Exercise 2: Advanced Module Usage using ES6 module syntax",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  }
+}

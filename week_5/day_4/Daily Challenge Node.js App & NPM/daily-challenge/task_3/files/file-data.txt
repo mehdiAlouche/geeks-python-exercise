@@ -1,0 +1,16 @@
+Welcome to the Node.js Daily Challenge!
+
+This file demonstrates file operations in Node.js.
+The fs (File System) module is a core module that allows us to work with the file system.
+
+Key features of the fs module:
+- Read files (sync and async)
+- Write files
+- Append to files
+- Delete files
+- Create directories
+- And much more!
+
+Node.js makes file operations simple and efficient.
+Happy coding!
+
